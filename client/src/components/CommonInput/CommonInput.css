@@ -1,0 +1,27 @@
+.input-group {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+
+.input-group input:focus {
+  border-color: #2e7d32;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+.input-group input::placeholder {
+  font-size: 1rem;       /* Increase for better readability */
+  color: #666;           /* Slightly darker placeholder text */
+  font-weight: 500;      /* Make it a bit bolder */
+  opacity: 1;            /* Ensure it’s fully visible */
+}

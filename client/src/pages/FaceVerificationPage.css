@@ -1,0 +1,40 @@
+.face-verification-container {
+  min-height: 100vh;
+  background: linear-gradient(to right, #141e30, #243b55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 15px;
+  color: white;
+  text-align: center;
+}
+
+.face-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.webcam {
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.proceed-button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #00c9ff, #92fe9d);
+  border: none;
+  border-radius: 30px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.proceed-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 201, 255, 0.6);
+}

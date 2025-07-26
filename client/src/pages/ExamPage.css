@@ -1,0 +1,133 @@
+.exam-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.exam-form-section {
+  flex: 3;
+  padding: 20px;
+}
+
+.exam-form-section iframe {
+  width: 100%;
+  height: 75vh;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.end-test-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.floating-webcam {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+.floating-webcam video {
+  width: 280px !important; 
+  height: auto !important;
+  border-radius: 4px;
+}
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.submit-button,
+.end-test-button {
+  width: 120px;
+  padding: 10px 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  bottom: auto;
+}
+
+.submit-button {
+  background-color: #4CAF50;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+.end-test-button {
+  background-color: #f44336;
+}
+
+.end-test-button:hover {
+  background-color: #d32f2f;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+  width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-box h3 {
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-box.timeout .modal-buttons {
+  justify-content: center;
+}
+
+
+@media (max-width: 768px) {
+  .floating-webcam video {
+    width: 90px !important;
+    height: auto !important;
+    border-radius: 6px;
+  }
+}
+
+
+
+
+
+

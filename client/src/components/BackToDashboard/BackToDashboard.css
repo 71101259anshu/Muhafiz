@@ -1,0 +1,19 @@
+.back-floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #008000;
+  color: white;
+  padding: 12px 18px;
+  font-size: 15px;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 999;
+  transition: background-color 0.2s ease;
+}
+
+.back-floating-btn:hover {
+  background-color: #085e05;
+}

@@ -1,0 +1,164 @@
+.reports-page {
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #d4fcd2, #eec3b0);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #004d00;
+}
+
+.reports-page-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: green;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.attendance-summary {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* ✅ Box-specific gradient styles */
+.summary-box {
+  padding: 25px 30px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 180px;
+  transition: transform 0.2s ease;
+}
+
+.summary-box.total {
+  background: linear-gradient(to right, #d5e9ef, #05cae9);
+  box-shadow: 0 4px 16px rgba(0, 128, 0, 0.1);
+}
+
+.summary-box.attended {
+  background: linear-gradient(to right, #9fec9f, #159d49);
+  box-shadow: 0 4px 16px rgba(0, 128, 0, 0.15);
+}
+
+.summary-box.absent {
+  background: linear-gradient(to right, #ffb3b3, #ff4d4d);
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.2);
+}
+
+.summary-box:hover {
+  transform: translateY(-3px);
+}
+
+.summary-box p {
+  margin: 0;
+  font-size: 15px;
+  color: black;
+}
+
+.summary-box h2 {
+  font-size: 28px;
+  color: black;
+  margin-top: 8px;
+}
+
+.student-lists {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.student-section {
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Attended section with green tone */
+.attended-section {
+  background: linear-gradient(to right, #7ab47a, #1ed564);
+}
+
+/* ✅ Absent section with red tone */
+.absent-section {
+  background: linear-gradient(to right, #ffc5c5, #ff6b6b);
+}
+
+.student-section h3 {
+  text-align: center;
+  color: #004d00;
+  margin-bottom: 12px;
+}
+
+.student-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.student-section ul li {
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #004d00;
+  font-weight: 500;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination-controls button {
+  background-color: #008000;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:hover {
+  background-color: #006400;
+}
+
+.pagination-controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-weight: bold;
+  color: #006400;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+  .attendance-summary,
+  .student-lists {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .summary-box,
+  .student-section {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

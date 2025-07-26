@@ -1,0 +1,92 @@
+.pricing-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 1.5rem;
+ background:  linear-gradient(135deg, #d4fcd2, #eec3b0);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.pricing-title {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: #064420;
+  font-weight: 600;
+}
+
+.pricing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.pricing-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 280px;
+  box-shadow: 0 8px 25px rgba(0, 100, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+}
+
+.pricing-card h3 {
+  font-size: 1.5rem;
+  color: #064420;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 1.3rem;
+  color: #008000;
+  margin-bottom: 1rem;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-card li {
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.pricing-btn {
+  background-color: #008000;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pricing-btn:hover {
+  background-color: #045d1f;
+}
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #008000;
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.back-btn:hover {
+  background-color: #045d1f;
+  transform: scale(1.05);
+}

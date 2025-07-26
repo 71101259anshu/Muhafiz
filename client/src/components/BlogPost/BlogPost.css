@@ -1,0 +1,25 @@
+.blog-post {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f9fff9;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 100, 0, 0.1);
+}
+
+.blog-post h2 {
+  font-size: 1.8rem;
+  color: #024e2b;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}

@@ -1,0 +1,133 @@
+.admin-dashboard {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #d4fcd2, #eec3b0);
+  color: #333;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: green;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border-left: 5px solid #008000;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #008000;
+}
+
+.button-group {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.button-group button {
+  background-color: #008000;
+  border: none;
+  padding: 12px 20px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button-group button:hover {
+  background-color: #28a745;
+}
+
+.activity-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.activity-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.activity-log {
+  list-style: none;
+  padding: 0;
+  line-height: 1.8em;
+}
+
+.activity-log li {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+/* ✅ Media Query for Small Screens */
+@media (max-width: 500px) {
+  .dashboard-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .button-group button {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .stat-card h2 {
+    font-size: 16px;
+  }
+
+  .stat-card p {
+    font-size: 20px;
+  }
+
+  .activity-section h2 {
+    font-size: 18px;
+  }
+}

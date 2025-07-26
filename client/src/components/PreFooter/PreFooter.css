@@ -1,0 +1,114 @@
+.get-started {
+  background: linear-gradient(to right, #f0ebeb, lab(88.02% -33.9 29.58));
+  text-align: center;
+  padding: 4rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.get-started h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #064420;
+}
+
+.get-started p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.btn.green-btn {
+  background-color: #008000;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn.green-btn:hover {
+  background-color: #1b5e20;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(27, 94, 32, 0.4);
+}
+
+
+.integration-section {
+  background: linear-gradient(to right, #f0ebeb, lab(88.02% -33.9 29.58));
+  padding: 4rem 2rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.integration-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+
+.integration-left, .integration-right {
+  max-width: 300px;
+}
+
+.integration-left h3,
+.integration-right h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #008000;
+  margin-top: 0.5rem;
+}
+
+.subtext {
+  color: rgb(50, 56, 51);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.integration-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.integration-cta .shared-btn {
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  background: #008000;
+  color: white;
+  border-radius: 25px;
+}
+
+
+.shared-btn:hover {
+  background: #1b5e20;
+  transform: scale(1.07);
+  color: #e5efe5;
+}
+
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+
+

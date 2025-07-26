@@ -1,0 +1,18 @@
+.footer {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(90deg, #eec3b0, #089b08);
+  color: #1e1c1c;
+  font-size: 0.95rem;
+  text-align: center;
+  box-sizing: border-box;
+  line-height: 1.4;
+}
+
+/* Mobile-first: everything stacks nicely by default */
+@media (min-width: 768px) {
+  .footer {
+    font-size: 1rem;
+    padding: 1.5rem 2rem;
+  }
+}
