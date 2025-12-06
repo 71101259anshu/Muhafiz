@@ -1,145 +1,47 @@
-# Muhafiz
+# Muhafiz – Advanced and Automated Proctoring Solution
 
-Muhafiz is a full-stack web application designed for secure online test management and proctoring. It features user authentication, test creation, face verification, and comprehensive admin controls.
-
----
-
-## Table of Contents
-- [Features](#features)
-- [Folder Structure](#folder-structure)
-- [Libraries Used](#libraries-used)
-- [Setup Instructions](#setup-instructions)
-- [Step-by-Step Breakdown](#step-by-step-breakdown)
-- [Scripts](#scripts)
-
----
+Muhafiz is an intelligent proctoring platform designed to simplify and secure online examinations using facial recognition, behavior monitoring, and integration with Google/Microsoft Forms. It empowers administrators to monitor test-takers and ensure exam integrity with minimal manual intervention.
 
 ## Features
-- User registration and login
-- Admin dashboard for test and user management
-- Test creation and invitation system
-- Face verification for exam proctoring
-- Real-time notifications (toasts)
-- Protected routes for admin and exam access
-- Error handling and 404 page
+
+- 🔐 **OTP-based Email Verification** for secure login and registration
+- 👤 **Face Verification** to authenticate the test-taker before exam
+- 📸 **Live Webcam Feed** during exams for real-time monitoring
+- 💻 **Fullscreen + Tab Switch Detection** to prevent cheating
+- 🧠 **AI-based Cheating Detection (planned)**: face cover, multiple faces, etc.
+- ⏳ **Auto Timer & Auto-Submission**
+- 📨 **Email-based Invite Codes** to join specific tests
+- 📝 **Google/Microsoft Form Integration** for flexible test creation
+- 📊 **Attendance Tracking & Reporting**
+- 🛡️ **Admin-only Dashboard**
 
 ---
 
-## Folder Structure
-```
-Muhafiz/
-├── client/
-│   ├── package.json
-│   ├── public/
-│   └── src/
-│       ├── App.js
-│       ├── components/
-│       ├── pages/
-│       ├── routes/
-│       └── utils/
-├── server/
-│   ├── package.json
-│   ├── server.js
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── uploads/
-│   └── utils/
-├── images/
-├── public/
-└── Readme.md
-```
+Here is my complete website ===>>> Muhafiz/images.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React.js, CSS, XML
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB + Mongoose
+- **Authentication**: JWT, OTP via email
+- **Face Recognition**: face-api.js
+- **Email Service**: Nodemailer
 
 ---
 
-## Libraries Used
+## 📦 Installation
 
-### Client (React)
-- **react**: UI library
-- **react-router-dom**: Routing
-- **react-toastify**: Toast notifications
-
-### Server (Node.js/Express)
-- **express**: Web server
-- **mongoose**: MongoDB ODM
-- **jsonwebtoken**: JWT authentication
-- **nodemailer**: Email sending
-- **bcryptjs**: Password hashing
-
----
-
-## Setup Instructions
-
-### 1. Clone the repository
 ```bash
-git clone <repo-url>
+# Clone the repo
+git clone https://github.com/71101259anshu/Muhafiz.git
 cd Muhafiz
-```
 
-### 2. Install dependencies
-- For client:
-  ```bash
-  cd client
-  npm install
-  ```
-- For server:
-  ```bash
-  cd server
-  npm install
-  ```
+# Install backend dependencies
+cd server
+npm install
 
-### 3. Configure environment variables
-- Create a `.env` file in the `server` folder with your MongoDB URI, JWT secret, and email credentials.
+# Install frontend dependencies
+cd ../client
+npm install
 
-### 4. Start the development servers
-- In one terminal, run the client:
-  ```bash
-  cd client
-  npm start
-  ```
-- In another terminal, run the server:
-  ```bash
-  cd server
-  npm run dev
-  ```
-
----
-
-## Step-by-Step Breakdown
-
-1. **User Registration & Login**
-   - Users can register and log in from the client app.
-   - Passwords are hashed and stored securely.
-2. **Admin Dashboard**
-   - Admins can create, manage, and delete tests.
-   - Admins can manage users and view reports.
-3. **Test Creation & Invitation**
-   - Admins create tests and generate invite codes.
-   - Users join tests using invite codes.
-4. **Face Verification**
-   - Before starting an exam, users must complete face verification.
-5. **Exam & Proctoring**
-   - Users take exams in a protected environment.
-   - Admins can monitor and review reports.
-6. **Notifications & Error Handling**
-   - Toast notifications inform users of actions and errors.
-   - 404 page for undefined routes.
-
----
-
-## Scripts
-
-### Client
-- `npm start` — Start React development server
-- `npm run build` — Build for production
-
-### Server
-- `npm run dev` — Start server with nodemon
-- `npm start` — Start server
-
----
-
-## License
-MIT
