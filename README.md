@@ -1,6 +1,6 @@
-# Muhafiz – Advanced and Automated Proctoring Solution
+# Kvizroom – Advanced and Automated Proctoring Solution
 
-Muhafiz is an intelligent proctoring platform designed to simplify and secure online examinations using facial recognition, behavior monitoring, and integration with Google/Microsoft Forms. It empowers administrators to monitor test-takers and ensure exam integrity with minimal manual intervention.
+Kvizroom is an intelligent proctoring platform designed to simplify and secure online examinations using facial recognition, behavior monitoring, and integration with own test creation (earlier, we were embedding Google-form/Microsoft Survey to the test window). It empowers administrators to monitor test-takers and ensure exam integrity with minimal manual intervention.
 
 ## Features
 
@@ -17,7 +17,7 @@ Muhafiz is an intelligent proctoring platform designed to simplify and secure on
 
 ---
 
-Here is my complete website ===>>> Muhafiz/images.
+Here is my complete website ===>>> Kvizroom/images.
 
 ## 🛠️ Tech Stack
 
@@ -34,14 +34,14 @@ Here is my complete website ===>>> Muhafiz/images.
 
 ```bash
 # Clone the repo
-git clone https://github.com/71101259anshu/Muhafiz.git
-cd Muhafiz
+git clone https://github.com/71101259anshu/Kvizroom.git
+cd Kvizroom
 
 # Install backend dependencies
 cd server
 npm install
 
 # Install frontend dependencies
-cd ../client
+cd client
 npm install
 
