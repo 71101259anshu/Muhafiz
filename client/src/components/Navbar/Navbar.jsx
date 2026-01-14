@@ -1,23 +1,42 @@
-// src/components/Navbar/Navbar.jsx
 import React, { useState, useContext } from "react";
-import "./Navbar.css";
-import logo from "../../assets/logo_muhafiz.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AuthContext } from "../../context/AuthContext";
+import "./Navbar.css";
+import { FaGraduationCap, FaCheckCircle } from 'react-icons/fa';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   // get a display name fallback
   const displayText = user ? (user.username || user.name || user.email || "") : "";
   const initial = displayText ? displayText.charAt(0).toUpperCase() : "";
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
-    <header className="navbar">
-      <div className="logo">
-        <img src={logo} alt="Muhafiz" />
-        <span><b>Kviz</b>room</span>
+    <motion.header
+      className="navbar glass-nav"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="logo-container">
+        <Link to="/" className="brand-logo">
+          <div className="logo-icon-wrapper">
+            <FaGraduationCap className="shield-icon" />
+            <FaCheckCircle className="check-icon" />
+          </div>
+          <span className="brand-text">
+            <span className="brand-primary">Kviz</span>
+            <span className="brand-secondary">room</span>
+          </span>
+        </Link>
       </div>
 
       <div className="right-section">
@@ -32,35 +51,54 @@ const Navbar = () => {
         </button>
       </div>
 
-      <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
-        <ul>
-          <li><Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link></li>
-          <li><Link to="/blog" onClick={() => setMenuOpen(false)}>Blog</Link></li>
-          <li><Link to="/pricing" onClick={() => setMenuOpen(false)}>Pricing</Link></li>
-          <li><Link to="/contact" onClick={() => setMenuOpen(false)}>Contact Us</Link></li>
+      <AnimatePresence>
+        {(menuOpen || window.innerWidth > 768) && (
+          <motion.nav
+            className={`nav-links ${menuOpen ? "open" : ""}`}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ul>
+              <motion.li whileHover={{ scale: 1.1 }}>
+                <Link to="/invite" onClick={() => setMenuOpen(false)}>Quizroom</Link>
+              </motion.li>
+              <motion.li whileHover={{ scale: 1.1 }}>
+                <Link to="/classroom" className="nav-highlight" onClick={() => setMenuOpen(false)}>Classroom</Link>
+              </motion.li>
 
-          {user ? (
-            <li>
-              <div className="avatar-container" onClick={logout} title={displayText}>
-                { (user.photo || user.avatar) ? (
-                  <img
-                    src={user.photo || user.avatar}
-                    alt="Avatar"
-                    className="avatar-img"
-                  />
-                ) : (
-                  <div className="avatar-circle">
-                    {initial}
+              {user ? (
+                <li>
+                  <div className="avatar-container" onClick={handleLogout} title={`Logout ${displayText}`}>
+                    {(user.photo || user.avatar) ? (
+                      <img
+                        src={user.photo || user.avatar}
+                        alt="Avatar"
+                        className="avatar-img"
+                      />
+                    ) : (
+                      <div className="avatar-circle">
+                        {initial}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </li>
-          ) : (
-            <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></li>
-          )}
-        </ul>
-      </nav>
-    </header>
+                </li>
+              ) : (
+                <>
+                  <motion.li whileHover={{ scale: 1.1 }}>
+                    <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+                  </motion.li>
+                  <motion.li whileHover={{ scale: 1.05 }}>
+                    <Link to="/register" className="btn-nav-register" onClick={() => setMenuOpen(false)}>Register</Link>
+                  </motion.li>
+                </>
+              )}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

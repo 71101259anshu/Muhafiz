@@ -1,0 +1,193 @@
+.classroom-preview-section {
+    padding: 5rem 2rem;
+    background: transparent;
+    /* Removed gradient to show wrapper bg */
+    /* Matches Hero for seamless scroll */
+    color: white;
+}
+
+.preview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.preview-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.preview-header h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    /* White text */
+    margin-bottom: 1rem;
+    /* Subtler gradient for header or just white */
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.preview-header p {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    /* Light gray for subtitle */
+}
+
+.preview-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    /* Changed from center to allow sticky behavior */
+    position: relative;
+}
+
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.05);
+    /* Glassmorphism */
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Subtle border */
+    backdrop-filter: blur(10px);
+}
+
+.feature-item:hover,
+.feature-item.active {
+    border-color: var(--secondary);
+    /* Teal accent */
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    /* Teal icon */
+    background: rgba(44, 177, 188, 0.15);
+    /* Teal glow bg */
+    padding: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.feature-text h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    /* Light text */
+}
+
+.feature-text p {
+    margin: 0;
+    color: #94a3b8;
+    /* Muted light text */
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.feature-visual {
+    position: sticky;
+    top: 120px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 0;
+    /* Remove padding to let children fill or handle it */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quote-card {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(44, 177, 188, 0.15), transparent 70%),
+        linear-gradient(135deg, rgba(31, 58, 95, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* decorative quote icon */
+.quote-icon-bg {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 8rem;
+    color: rgba(255, 255, 255, 0.03);
+    font-family: serif;
+    pointer-events: none;
+}
+
+.quote-text {
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #fff;
+    z-index: 2;
+    font-family: var(--font-main);
+    /* Keep it clean sans-serif or switch to serif if desired */
+    margin-bottom: 2rem;
+    /* subtle text shadow */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.quote-author {
+    font-size: 1rem;
+    color: var(--secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    z-index: 2;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.visual-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(44, 177, 188, 0.2);
+    color: var(--secondary);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(44, 177, 188, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+@media (max-width: 900px) {
+    .preview-content {
+        grid-template-columns: 1fr;
+    }
+}

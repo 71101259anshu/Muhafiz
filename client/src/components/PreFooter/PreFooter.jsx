@@ -1,42 +1,56 @@
 import React from 'react';
-import './PreFooter.css';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import './PreFooter.css';
 import formIcon from '../../assets/Muhafiz_icon_02.png';
 import dashIcon from '../../assets/Muhafiz_icon_01.png';
-
-
 
 const PreFooter = () => {
   return (
     <div className="prefooter-wrapper">
-      <section className="get-started">
-        <h2>Ready to Experience Smart Proctoring?</h2>
-        <a href="/login" className="btn green-btn">Get Started</a>
-      </section>
+      <motion.section
+        className="get-started"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <h2>Ready to Transform Your Classroom?</h2>
+        <p>Join thousands of educators delivering secure, interactive learning experiences.</p>
+        <Link to="/register" className="btn-primary cta-btn">Get Started for Free</Link>
+      </motion.section>
 
       <section className="integration-section">
         <div className="integration-content">
-          <div className="integration-left">
-            <img src={formIcon} alt="Forms" className="integration-icon" />
-            <p className="integration-line">
-              <span className="subtext">Effortlessly integrates with </span>
-              <strong>Google Forms or Microsoft Surveys</strong>
+          <motion.div
+            className="integration-card"
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <div className="icon-badge">
+              <img src={formIcon} alt="Legacy Sync" className="integration-icon" />
+            </div>
+            <h3>Seamless Integration</h3>
+            <p>
+              Effortlessly sync with your existing tools. Import logic from
+              <strong> Google Forms</strong> or <strong>Microsoft Surveys</strong> in seconds.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="integration-right">
-            <img src={dashIcon} alt="Dashboard" className="integration-icon" />
-            <p className="integration-line">
-              <span className="subtext">The best part? </span>
-              <strong>Live Status on Admin Dashboard</strong>
+          <motion.div
+            className="integration-card highlight-card"
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <div className="icon-badge">
+              <img src={dashIcon} alt="Live Dashboard" className="integration-icon" />
+            </div>
+            <h3>Real-Time Insights</h3>
+            <p>
+              Track student progress live. Our <strong>Admin Dashboard</strong> gives you
+              instant feedback on attendance and exam integrity.
             </p>
-          </div>
-        </div>
-
-        <div className="integration-cta">
-          <p>And it’s <strong>free.</strong><br /><strong>What are you waiting for?</strong></p>
-          <Link to="/create-test" className="btn shared-btn">Create Test</Link>
-          <Link to="/admin" className="btn shared-btn">Admin Dashboard</Link>
+          </motion.div>
         </div>
       </section>
     </div>

@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #008000;
+  background-color: var(--secondary);
   color: white;
   border: none;
   padding: 0.8rem 1.2rem;
@@ -11,9 +11,11 @@
   cursor: pointer;
   z-index: 999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .scroll-to-top:hover {
-  background-color: #045d1f;
+  background-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(44, 177, 188, 0.4);
 }
