@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './JoinTestPage.css';
 
 export default function JoinTestPage() {
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+
   const [email, setEmail] = useState('');
   const [inviteCode, setInviteCode] = useState('');
   const navigate = useNavigate();
@@ -37,20 +27,26 @@ export default function JoinTestPage() {
 
       toast.success('Validation successful!');
 
-      const { testId, name } = res.data;
+      const { testId, name, biometricEnabled } = res.data;
 
       // ✅ Store in localStorage for use in ExamPage logs
       localStorage.setItem("email", email);
       localStorage.setItem("name", name);
 
-      // ✅ Navigate to FaceVerificationPage with testId, email, and name
-      navigate('/face-verification', {
-        state: {
-          testId,
-          email,
-          name,
-        },
-      });
+      if (biometricEnabled) {
+        // ✅ Navigate to FaceVerificationPage with testId, email, and name
+        navigate('/face-verification', {
+          state: {
+            testId,
+            email,
+            name,
+          },
+        });
+      } else {
+        // ✅ Skip verification: Mark as verified and go to Exam
+        localStorage.setItem(`verified-${testId}`, 'true');
+        navigate(`/exam/${testId}`);
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to validate');
     }
