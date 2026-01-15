@@ -11,6 +11,8 @@ const userRoutes = require('./routes/userRoutes');
 const testRoutes = require('./routes/testRoutes');
 const proctorRoutes = require('./routes/proctorRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const classRoutes = require('./routes/classRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 dotenv.config();
 connectDB();
@@ -28,7 +30,7 @@ app.use(express.json({ limit: '10mb' }));
 // ✅ Static folders for descriptors and models
 app.use('/faces', express.static(path.join(__dirname, 'faces')));
 app.use('/models', express.static(path.join(__dirname, 'models'))); // optional
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
 // ✅ API Routes
@@ -36,6 +38,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/tests', testRoutes);
 app.use('/api/proctor', proctorRoutes);
 app.use('/api', contactRoutes);
+app.use('/api/classes', classRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/classwork', require('./routes/classworkRoutes'));
 
 
 // ✅ Face verification test route

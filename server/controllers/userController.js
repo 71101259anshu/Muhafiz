@@ -14,11 +14,11 @@ const generateToken = (id) => {
 
 // Register User
 const registerUser = async (req, res) => {
-  const { username, email, password, photo, acceptedTerms, otp,  role } = req.body;
+  const { username, email, password, photo, acceptedTerms, otp, role } = req.body;
 
   if (!verifyOtp(email, otp)) {
-  return res.status(400).json({ message: 'Invalid or expired OTP' });
-}
+    return res.status(400).json({ message: 'Invalid or expired OTP' });
+  }
 
 
   try {
@@ -44,6 +44,7 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
       photo,
       role,
+      faceDescriptor: req.body.faceDescriptor || [], // Save descriptor
     });
 
     // Send response
@@ -143,6 +144,22 @@ const resetPassword = async (req, res) => {
   res.status(200).json({ message: 'Password reset successful' });
 };
 
+// 3. Get Biometric Data (Protected)
+const getBiometricData = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id); // req.user set by middleware
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.json({
+      hasBiometric: user.faceDescriptor && user.faceDescriptor.length === 128,
+      faceDescriptor: user.faceDescriptor,
+      photoUrl: user.photo // Send photo URL as fallback
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
@@ -150,5 +167,6 @@ module.exports = {
   verifyOtp,
   sendResetOtp,
   resetPassword,
+  getBiometricData,
 };
 
