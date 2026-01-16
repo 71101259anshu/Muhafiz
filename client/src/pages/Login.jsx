@@ -1,6 +1,6 @@
 // src/pages/Login.jsx
-import React, { useState, useEffect, useContext } from 'react';
-import Lenis from '@studio-freight/lenis';
+import React, { useState, useContext } from 'react';
+
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,17 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+
 
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -64,9 +54,13 @@ const Login = () => {
 
       toast.success("Login successful!");
 
-      // redirect to home (or admin area if user.role === 'admin')
+      // redirect: Admin -> Dashboard, Others (Student/Teacher) -> Home
       const role = user?.role || (token ? (jwtDecode(token).role) : null);
-      role === 'admin' ? navigate('/admin') : navigate('/');
+      if (role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       console.error("❌ Login failed:", error);
       console.error("Error response:", error.response);
@@ -119,7 +113,6 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <Link to="/" className="back-btn">← Back to Home</Link>
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Welcome Back</h2>
 
