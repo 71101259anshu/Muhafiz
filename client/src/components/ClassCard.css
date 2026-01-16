@@ -1,0 +1,76 @@
+.class-card {
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    /* Glass card */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.class-card-header {
+    height: 100px;
+    padding: 1rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.class-name {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.class-section {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.class-teacher {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: right;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+.class-card-body {
+    padding: 1rem;
+    flex: 1;
+    color: #e2e8f0;
+    /* Light text */
+}
+
+.class-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.class-card-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    color: #94a3b8;
+}
+
+/* Glassmorphism utility if not globally defined */
+.glass-effect {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}

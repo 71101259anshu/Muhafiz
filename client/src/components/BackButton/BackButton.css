@@ -4,17 +4,23 @@
   bottom: 24px;
   left: 24px;
   z-index: 999;
-  background-color: #008000;
+  background-color: var(--secondary);
   color: white;
-  border: 1px solid #ccc;
-  padding: 10px 16px;
-  border-radius: 9999px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .back-button:hover {
-  background-color: #2d9b2d;
+  background-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(44, 177, 188, 0.4);
 }

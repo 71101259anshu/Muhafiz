@@ -2,18 +2,27 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #008000;
+  background-color: var(--secondary);
+  /* Teal */
   color: white;
-  padding: 12px 18px;
-  font-size: 15px;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
   border: none;
-  border-radius: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  /* Pill shape */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   z-index: 999;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .back-floating-btn:hover {
-  background-color: #085e05;
+  background-color: var(--primary);
+  /* Deep Blue */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }

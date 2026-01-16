@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import "./CreateTest.css";
 import { createTest } from "../api/testApi";
-import { FaPlusCircle, FaTrash, FaCopy, FaImage, FaCheck, FaListUl, FaRegCheckSquare, FaRegDotCircle, FaCheckCircle, FaCheckSquare } from "react-icons/fa";
-import { MdShortText, MdSubject, MdCheckBox, MdQuiz } from "react-icons/md";
+import { FaPlusCircle, FaTrash, FaCopy, FaImage, FaCheck, FaRegCheckSquare, FaRegDotCircle, FaCheckCircle, FaCheckSquare } from "react-icons/fa";
+import { MdShortText, MdQuiz } from "react-icons/md";
 
 export default function CreateTest() {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ export default function CreateTest() {
   const [time, setTime] = useState("");
   const [duration, setDuration] = useState("");
   const [biometricEnabled, setBiometricEnabled] = useState(false); // New State
+
 
   // Form builder state
   const [questions, setQuestions] = useState([
@@ -160,14 +161,7 @@ export default function CreateTest() {
     setQuestions(prev => prev.filter(q => q.id !== id));
   };
 
-  const moveQuestion = (index, direction) => {
-    const newQs = [...questions];
-    const target = index + direction;
-    if (target >= 0 && target < questions.length) {
-      [newQs[index], newQs[target]] = [newQs[target], newQs[index]];
-      setQuestions(newQs);
-    }
-  };
+
 
   // Submit
   const handleSubmit = async () => {
@@ -182,7 +176,23 @@ export default function CreateTest() {
     formData.append("description", description);
     formData.append("duration", Number(duration));
     formData.append("startTime", startTime);
-    formData.append("biometricEnabled", biometricEnabled); // Send flag
+    // Auto-configure Proctoring Settings based on Biometric Status
+    const autoSettings = biometricEnabled ? {
+      restrictTabs: true,
+      restrictFullScreen: true,
+      disableCopyPaste: true,
+      noiseDetection: true,
+      multiFaceDetection: true
+    } : {
+      restrictTabs: true,
+      restrictFullScreen: true,
+      disableCopyPaste: true,
+      noiseDetection: false,
+      multiFaceDetection: false
+    };
+
+    formData.append("biometricEnabled", biometricEnabled);
+    formData.append("proctoringSettings", JSON.stringify(autoSettings));
 
     // Filter out sections from being "Questions" if backend doesn't support them, or send them as special types.
     // For now, we will send them as questions with type='section' and backend should store them.
@@ -237,6 +247,8 @@ export default function CreateTest() {
               <div className="switch-slider"></div>
             </label>
           </div>
+
+
 
           <button className="publish-btn" onClick={handleSubmit}>Publish Quiz</button>
         </div>
