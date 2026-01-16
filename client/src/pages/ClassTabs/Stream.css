@@ -238,3 +238,23 @@
 .delete-post-btn:hover {
     color: #c0392b;
 }
+
+/* Private Post Badge */
+.private-badge {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: 1px solid #fca5a5;
+    font-weight: bold;
+}
+
+.private-post {
+    border-left: 4px solid #dc2626;
+    background: #fef2f2;
+}

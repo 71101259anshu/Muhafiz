@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
-import { FaPaperPlane, FaUserCircle, FaPaperclip, FaFile, FaFilePdf, FaImage, FaTimes, FaTrash } from 'react-icons/fa';
+import { FaPaperPlane, FaUserCircle, FaPaperclip, FaFile, FaTimes, FaTrash, FaLock } from 'react-icons/fa';
 import './Stream.css';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -14,7 +14,7 @@ const Stream = ({ classId }) => {
     const [loading, setLoading] = useState(true);
     const fileInputRef = useRef(null);
 
-    const fetchPosts = async () => {
+    const fetchPosts = React.useCallback(async () => {
         try {
             const token = localStorage.getItem('token');
             const res = await axios.get(`/api/posts/${classId}`, {
@@ -27,7 +27,7 @@ const Stream = ({ classId }) => {
             console.error(err);
             setLoading(false);
         }
-    };
+    }, [classId]);
 
     useEffect(() => {
         fetchPosts();
@@ -53,7 +53,7 @@ const Stream = ({ classId }) => {
         return () => {
             socket.disconnect();
         };
-    }, [classId]);
+    }, [classId, fetchPosts]);
 
     const handleFileSelect = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -195,64 +195,90 @@ const Stream = ({ classId }) => {
                 {posts.length === 0 ? (
                     <div className="empty-stream">No posts yet. Be the first to start a conversation!</div>
                 ) : (
-                    posts.map(post => (
-                        <div key={post._id} className="post-card card">
-                            <div className="post-header">
-                                <div className="author-avatar">
-                                    {post.author?.photo ? (
-                                        <img src={post.author.photo} alt={post.author.username} />
-                                    ) : (
-                                        <FaUserCircle />
-                                    )}
-                                </div>
-                                <div className="post-meta">
-                                    <span className="author-name">{post.author?.username || 'Unknown User'}</span>
-                                    <span className="post-date">{new Date(post.createdAt).toLocaleString()}</span>
-                                </div>
-                                {(user?._id === post.author?._id || user?.role === 'admin') && (
-                                    <button className="delete-post-btn" onClick={() => handleDelete(post._id)} title="Delete Post">
-                                        <FaTrash />
-                                    </button>
-                                )}
-                            </div>
-                            <div className="post-body">
-                                {post.content}
-                                {post.attachments && post.attachments.map(att => renderAttachment(att))}
-                            </div>
-                            <div className="post-footer">
-                                <div className="comments-section">
-                                    {post.comments.length > 0 && (
-                                        <div className="comments-list">
-                                            {post.comments.map((c, idx) => (
-                                                <div key={idx} className="comment">
-                                                    <strong>{c.author?.username || 'Unknown'}: </strong>
-                                                    {c.content}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    <div className="comment-input-wrapper">
-                                        <input
-                                            type="text"
-                                            placeholder="Add class comment..."
-                                            className="comment-input"
-                                            value={commentInputs[post._id] || ''}
-                                            onChange={(e) => handleCommentChange(post._id, e.target.value)}
-                                            onKeyDown={(e) => handleCommentKeyDown(e, post._id)}
-                                        />
-                                        <button
-                                            className="send-comment-btn"
-                                            onClick={() => submitComment(post._id)}
-                                            disabled={!commentInputs[post._id]?.trim()}
-                                        >
-                                            <FaPaperPlane />
+                    posts.map(post => {
+                        // Filter Logic: If private, only show to author or recipient
+                        if (post.isPrivate) {
+                            const currentUserId = user?._id || user?.id;
+                            const isAuthor = String(currentUserId) === String(post.author?._id);
+                            const isRecipient = String(currentUserId) === String(post.recipient);
+
+                            // console.log(`Frontend Private Check [${post._id}]:`, {
+                            //     content: post.content,
+                            //     myId: user?._id,
+                            //     authorId: post.author?._id,
+                            //     recipientId: post.recipient,
+                            //     isAuthor,
+                            //     isRecipient,
+                            //     isRelated: isAuthor || isRecipient
+                            // });
+
+                            const isRelated = isAuthor || isRecipient;
+                            if (!isRelated) return null;
+                        }
+
+                        return (
+                            <div key={post._id} className={`post-card card ${post.isPrivate ? 'private-post' : ''}`}>
+                                <div className="post-header">
+                                    <div className="author-avatar">
+                                        {post.author?.photo ? (
+                                            <img src={post.author.photo} alt={post.author.username} />
+                                        ) : (
+                                            <FaUserCircle />
+                                        )}
+                                    </div>
+                                    <div className="post-meta">
+                                        <span className="author-name">
+                                            {post.author?.username || 'Unknown User'}
+                                            {post.isPrivate && <span className="private-badge"><FaLock /> Private</span>}
+                                        </span>
+                                        <span className="post-date">{new Date(post.createdAt).toLocaleString()}</span>
+                                    </div>
+                                    {(user?._id === post.author?._id || user?.role === 'admin') && (
+                                        <button className="delete-post-btn" onClick={() => handleDelete(post._id)} title="Delete Post">
+                                            <FaTrash />
                                         </button>
+                                    )}
+                                </div>
+                                <div className="post-body">
+                                    {post.content}
+                                    {post.attachments && post.attachments.map(att => renderAttachment(att))}
+                                </div>
+                                <div className="post-footer">
+                                    <div className="comments-section">
+                                        {post.comments.length > 0 && (
+                                            <div className="comments-list">
+                                                {post.comments.map((c, idx) => (
+                                                    <div key={idx} className="comment">
+                                                        <strong>{c.author?.username || 'Unknown'}: </strong>
+                                                        {c.content}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <div className="comment-input-wrapper">
+                                            <input
+                                                type="text"
+                                                placeholder="Add class comment..."
+                                                className="comment-input"
+                                                value={commentInputs[post._id] || ''}
+                                                onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                                                onKeyDown={(e) => handleCommentKeyDown(e, post._id)}
+                                            />
+                                            <button
+                                                className="send-comment-btn"
+                                                onClick={() => submitComment(post._id)}
+                                                disabled={!commentInputs[post._id]?.trim()}
+                                            >
+                                                <FaPaperPlane />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))
-                )}
+                        )
+                    })
+                )
+                }
             </div>
         </div>
     );
