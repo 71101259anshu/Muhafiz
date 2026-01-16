@@ -1,52 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import Lenis from '@studio-freight/lenis';
+
 import './ManageUsers.css';
-import BackToDashboard from '../components/BackToDashboard/BackToDashboard';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function ManageUsers() {
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+
   const { testId } = useParams();
   const [students, setStudents] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
   const [invitedEmails, setInvitedEmails] = useState([]);
 
   // ✅ Fetch student activity logs
-  const fetchStudentActivity = async () => {
+  const fetchStudentActivity = React.useCallback(async () => {
     try {
       const res = await axios.get(`/api/tests/${testId}/activity`);
       setStudents(res.data);
     } catch (err) {
       toast.error('Failed to load student activity');
     }
-  };
+  }, [testId]);
 
   // ✅ Fetch invited emails list (if needed elsewhere)
-  const fetchInvitedEmails = async () => {
+  const fetchInvitedEmails = React.useCallback(async () => {
     try {
       const res = await axios.get(`/api/tests/${testId}`);
       setInvitedEmails(res.data.invitedEmails || []);
     } catch (err) {
       console.error("Error fetching invited emails:", err);
     }
-  };
+  }, [testId]);
 
   useEffect(() => {
     fetchStudentActivity();
     fetchInvitedEmails();
-  }, [testId]);
+  }, [testId, fetchStudentActivity, fetchInvitedEmails]);
 
   // ✅ Send warning to backend
   const handleWarn = async (student) => {
@@ -86,9 +75,14 @@ export default function ManageUsers() {
 
   return (
     <div className="manage-users">
-      <h1 className="manage-users-title">Manage Students</h1>
+      <div className="header-section glass-panel">
+        <div className="header-content">
+          <h1>Student Activity</h1>
+          <p>Monitor student progress and integrity logs</p>
+        </div>
+      </div>
 
-      <div className="table-scroll-wrapper">
+      <div className="table-scroll-wrapper glass-card">
         <table className="users-table">
           <thead>
             <tr>
@@ -106,7 +100,7 @@ export default function ManageUsers() {
                 <td>{student.email}</td>
                 <td>
                   <button className="view-btn" onClick={() => setActiveModal(index)}>
-                    View
+                    View Log
                   </button>
                 </td>
               </tr>
@@ -124,6 +118,9 @@ export default function ManageUsers() {
                 {students[activeModal].inactivityLogs.map((log, i) => (
                   <li key={i}>⚠️ {log}</li>
                 ))}
+                {students[activeModal].inactivityLogs.length === 0 && (
+                  <li className="no-activity">No suspicious activity recorded.</li>
+                )}
               </ul>
             </div>
             <div className="popup-actions">
@@ -131,17 +128,15 @@ export default function ManageUsers() {
                 Send Warning
               </button>
               <button className="remove-btn" onClick={() => handleRemove(students[activeModal])}>
-                Remove Student
+                Remove
               </button>
               <button className="cancel-btn" onClick={() => setActiveModal(null)}>
-                Cancel
+                Close
               </button>
             </div>
           </div>
         </div>
       )}
-
-      <BackToDashboard />
     </div>
   );
 }

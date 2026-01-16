@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
+
 import { useNavigate, useLocation } from 'react-router-dom';
 import './ManageTests.css';
-import BackToDashboard from '../components/BackToDashboard/BackToDashboard';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { FaEdit, FaTrash, FaEnvelope, FaChartBar, FaUsersCog, FaPlus } from 'react-icons/fa';
 
 export default function ManageTests() {
   // Smooth scroll effect
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, []);
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,20 +21,32 @@ export default function ManageTests() {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
 
   // Fetch all tests on mount
+  const [classes, setClasses] = useState([]);
+
+  // Fetch all tests & classes on mount
   useEffect(() => {
     const fetchTests = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/tests', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get('/api/tests', { headers: { Authorization: `Bearer ${token}` } });
         setTests(res.data);
       } catch (err) {
-        console.error(err);
-        toast.error('Failed to fetch tests');
+        console.error("Test Fetch Error:", err);
       }
     };
+
+    const fetchClasses = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get('/api/classes', { headers: { Authorization: `Bearer ${token}` } });
+        setClasses(res.data);
+      } catch (err) {
+        console.error("Class Fetch Error:", err);
+      }
+    };
+
     fetchTests();
+    fetchClasses();
   }, []);
 
   // Append newly created test if navigated from CreateTest
@@ -128,7 +132,7 @@ export default function ManageTests() {
       setEmailInput('');
     } catch (err) {
       console.error(err);
-      toast.error('Failed to send emails');
+      toast.error(err.response?.data?.message || 'Failed to send emails');
     } finally {
       setIsSendingEmail(false);
     }
@@ -140,18 +144,17 @@ export default function ManageTests() {
 
   return (
     <div className="manage-tests">
-      <div className="header-section">
-        <span className="header-section-title">
+      <div className="header-section glass-panel">
+        <div className="header-content">
           <h1>Manage Tests</h1>
-        </span>
-        <span className="header-section-btn">
-          <button className="create-button" onClick={() => navigate('/admin/tests/create')}>
-            + Create New Test
-          </button>
-        </span>
+          <p>Create, edit, and manage your assessments</p>
+        </div>
+        <button className="create-button" onClick={() => navigate('/admin/tests/create')}>
+          <FaPlus /> Create New Test
+        </button>
       </div>
 
-      <div className="table-scroll-wrapper">
+      <div className="table-container glass-card">
         <table className="tests-table">
           <thead>
             <tr>
@@ -167,16 +170,28 @@ export default function ManageTests() {
             {tests.map((test, index) => (
               <tr key={test._id}>
                 <td>{index + 1}</td>
-                <td>{test.title}</td>
+                <td className="test-title">{test.title}</td>
                 <td>{new Date(test.startTime).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}</td>
                 <td>{test.duration} mins</td>
-                <td>{test.questions?.length || 0}</td>
+                <td>{test.questionsCount || 0}</td>
                 <td>
-                  <button className="edit-btn action-btn" onClick={() => handleEdit(test)}>Edit</button>
-                  <button className="delete-btn action-btn" onClick={() => setDeletingTestId(test._id)}>Delete</button>
-                  <button className="email-btn action-btn" onClick={() => setEmailModalTestId(test._id)}>Email</button>
-                  <button className="report-button action-btn" onClick={() => navigate(`/report/${test._id}`)}>Report</button>
-                  <button className="manage-btn action-btn" onClick={() => handleManageUsers(test._id)}>Manage</button>
+                  <div className="action-buttons-group">
+                    <button className="action-btn edit" onClick={() => handleEdit(test)} title="Edit Test">
+                      <FaEdit />
+                    </button>
+                    <button className="action-btn email" onClick={() => setEmailModalTestId(test._id)} title="Share Test">
+                      <FaEnvelope />
+                    </button>
+                    <button className="action-btn manage" onClick={() => handleManageUsers(test._id)} title="Manage Users">
+                      <FaUsersCog />
+                    </button>
+                    <button className="action-btn report" onClick={() => navigate(`/report/${test._id}`)} title="View Report">
+                      <FaChartBar />
+                    </button>
+                    <button className="action-btn delete" onClick={() => setDeletingTestId(test._id)} title="Delete Test">
+                      <FaTrash />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -219,31 +234,71 @@ export default function ManageTests() {
         </div>
       )}
 
-      {/* Email Modal */}
+      {/* Share Modal (Email & Class) */}
       {emailModalTestId && (
         <div className="modal-overlay">
-          <div className="modal-box">
-            <h3>Send Test Invite</h3>
-            <p>Enter email addresses (comma-separated):</p>
-            <textarea
-              rows="4"
-              value={emailInput}
-              onChange={e => setEmailInput(e.target.value)}
-              placeholder="student1@example.com, student2@example.com"
-            />
-            <div className="popup-actions">
-              <button className="email-btn" onClick={handleSendEmails} disabled={isSendingEmail}>
-                {isSendingEmail ? 'Sending...' : 'Send'}
+          <div className="modal-box share-modal">
+            <h3>Share Test</h3>
+
+            <div className="share-section">
+              <h4>Via Email</h4>
+              <p>Enter email addresses (comma-separated):</p>
+              <textarea
+                rows="3"
+                value={emailInput}
+                onChange={e => setEmailInput(e.target.value)}
+                placeholder="student1@example.com, student2@example.com"
+              />
+              <button className="email-btn full-width-btn" onClick={handleSendEmails} disabled={isSendingEmail}>
+                {isSendingEmail ? 'Sending Emails...' : 'Send Emails'}
               </button>
+            </div>
+
+            <div className="share-divider">
+              <span>OR</span>
+            </div>
+
+            <div className="share-section">
+              <h4>Via Classroom</h4>
+              <p>Select a class to assign this test to:</p>
+              <select
+                className="class-select"
+                onChange={async (e) => {
+                  const classId = e.target.value;
+                  if (classId) {
+                    try {
+                      const token = localStorage.getItem('token');
+                      const res = await axios.post('/api/tests/share-to-class',
+                        { testId: emailModalTestId, classId },
+                        { headers: { Authorization: `Bearer ${token}` } }
+                      );
+                      toast.success(res.data.message);
+                      setEmailModalTestId(null);
+                      setEmailInput('');
+                    } catch (err) {
+                      console.error(err);
+                      toast.error(err.response?.data?.message || 'Failed to share test to class');
+                    }
+                  }
+                }}
+                defaultValue=""
+              >
+                <option value="" disabled>-- Quick Add from Class --</option>
+                {classes.map(cls => (
+                  <option key={cls.id} value={cls.id}>{cls.name} ({cls.studentCount} students)</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="popup-actions">
               <button className="cancel-btn" onClick={() => { setEmailModalTestId(null); setEmailInput(''); }}>
-                Cancel
+                Close
               </button>
             </div>
           </div>
         </div>
       )}
 
-      <BackToDashboard />
     </div>
   );
 }

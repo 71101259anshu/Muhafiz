@@ -27,7 +27,7 @@ const upload = multer({ storage });
 // Create Test
 const createTest = async (req, res) => {
   try {
-    const { title, description, duration, startTime, questions } = req.body; // Added description
+    const { title, description, duration, startTime, questions, proctoringSettings } = req.body; // Added description
 
     if (!title || !duration || !startTime) {
       return res.status(400).json({ message: 'Title, duration, and start time are required' });
@@ -79,7 +79,9 @@ const createTest = async (req, res) => {
       startTime,
       inviteCode,
       questions: processedQuestions,
-      createdBy: req.user._id // Link to creator
+      questions: processedQuestions,
+      createdBy: req.user._id, // Link to creator
+      proctoringSettings: proctoringSettings ? typeof proctoringSettings === 'string' ? JSON.parse(proctoringSettings) : proctoringSettings : {}
     });
 
     await test.save();
@@ -240,7 +242,9 @@ const validateInviteCodeandEmail = async (req, res) => {
       message: 'Validation successful',
       testId: test._id,
       name,
+      name,
       biometricEnabled: test.biometricEnabled,
+      proctoringSettings: test.proctoringSettings
     });
   } catch (err) {
     console.error('Validation error:', err);
@@ -307,11 +311,47 @@ const logInactivity = async (req, res) => {
       test.studentActivity.push({ email, name, inactivityLogs: [timestamp] });
     }
 
-    await test.save();
     res.status(200).json({ message: 'Inactivity logged' });
   } catch (error) {
     console.error('Error logging inactivity:', error);
     res.status(500).json({ message: 'Failed to log inactivity' });
+  }
+};
+
+// ✅ Log Malpractice (New)
+const logMalpractice = async (req, res) => {
+  const { email, name, type, message, snapshotUrl } = req.body;
+  const { testId } = req.params;
+
+  if (!email || !type || !message) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
+    const test = await Test.findById(testId);
+    if (!test) return res.status(404).json({ message: 'Test not found' });
+
+    // Update Student Activity in Test Model
+    const existingStudent = test.studentActivity.find((s) => s.email === email);
+    const newLog = { type, message, snapshotUrl, timestamp: new Date() };
+
+    if (existingStudent) {
+      existingStudent.malpracticeLogs = existingStudent.malpracticeLogs || [];
+      existingStudent.malpracticeLogs.push(newLog);
+    } else {
+      test.studentActivity.push({
+        email,
+        name,
+        inactivityLogs: [],
+        malpracticeLogs: [newLog]
+      });
+    }
+
+    await test.save();
+    res.status(200).json({ message: 'Malpractice logged' });
+  } catch (error) {
+    console.error('Error logging malpractice:', error);
+    res.status(500).json({ message: 'Failed to log malpractice' });
   }
 };
 
@@ -409,10 +449,15 @@ const removeStudent = async (req, res) => {
 
 const getDashboardStats = async (req, res) => {
   try {
-    const totalTests = await Test.countDocuments();
+    const teacherId = req.user._id;
 
+    // 1. Total Tests (Created by Teacher)
+    const totalTests = await Test.countDocuments({ createdBy: teacherId });
+
+    // 2. Active Exams (Created by Teacher)
     const now = new Date();
     const activeTests = await Test.find({
+      createdBy: teacherId,
       startTime: { $lte: now }
     }).lean();
 
@@ -421,19 +466,52 @@ const getDashboardStats = async (req, res) => {
       return now.getTime() <= endTime;
     }).length;
 
+    // 3. Flagged Sessions (For Teacher's Tests)
+    // We need to match tests created by this teacher first
     const flaggedSessionsAgg = await Test.aggregate([
+      { $match: { createdBy: teacherId } }, // Filter by teacher
       { $unwind: "$studentActivity" },
       { $match: { "studentActivity.inactivityLogs.0": { $exists: true } } },
       { $count: "flaggedCount" }
     ]);
     const flaggedSessions = flaggedSessionsAgg[0]?.flaggedCount || 0;
 
-    const registeredStudents = await User.countDocuments({ role: "student" });
+    // 4. Registered Classes (Created by Teacher)
+    const Class = require('../models/Class');
+    const totalClasses = await Class.countDocuments({ teacher: teacherId });
 
-    const recentTests = await Test.find().sort({ createdAt: -1 }).limit(5);
-    const recentLogs = recentTests.map(test =>
-      `📝 Test "${test.title}" was created on ${new Date(test.createdAt).toLocaleDateString()}`
-    );
+    // 5. Registered Students (Unique students across all Teacher's classes)
+    const classes = await Class.find({ teacher: teacherId }).select('students');
+    const allStudentIds = classes.flatMap(c => c.students.map(s => s.toString()));
+    const registeredStudents = new Set(allStudentIds).size;
+
+
+    // Recent Activity (Teacher's Tests, Classes & Classwork)
+    const Classwork = require('../models/Classwork');
+    const recentTests = await Test.find({ createdBy: teacherId }).sort({ createdAt: -1 }).limit(10).lean();
+    const recentClasses = await Class.find({ teacher: teacherId }).sort({ createdAt: -1 }).limit(10).lean();
+    const recentClasswork = await Classwork.find({ author: teacherId }).sort({ createdAt: -1 }).limit(10).lean();
+
+    const activities = [
+      ...recentTests.map(t => ({ logType: 'test', ...t })),
+      ...recentClasses.map(c => ({ logType: 'class', ...c })),
+      ...recentClasswork.map(cw => ({ logType: 'classwork', ...cw }))
+    ];
+
+    // Sort combined activities by createdAt desc
+    activities.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    // Take top 8-10 and format as objects
+    const recentLogs = activities.slice(0, 10).map(activity => {
+      const date = new Date(activity.createdAt).toLocaleDateString();
+      return {
+        id: activity._id,
+        type: activity.logType, // 'test', 'class', 'classwork'
+        subType: activity.type, // 'assignment', 'material' (only for classwork)
+        title: activity.title || activity.name,
+        date: date
+      };
+    });
 
     res.status(200).json({
       stats: {
@@ -441,11 +519,12 @@ const getDashboardStats = async (req, res) => {
         activeExams,
         flaggedSessions,
         registeredStudents,
+        totalClasses // Sending this too if needed, though UI only asked for students
       },
       recentLogs,
     });
   } catch (err) {
-    console.error("🔥 Dashboard stats error:", err); // 👈 PRINT FULL ERROR
+    console.error("🔥 Dashboard stats error:", err);
     res.status(500).json({ message: "Failed to fetch dashboard stats" });
   }
 };
@@ -627,7 +706,9 @@ const submitTest = async (req, res) => {
       score: totalScore,
       totalPoints: maxTotalPoints,
       answers: evaluatedAnswers,
-      isGraded: !requiresManualGrading // If no manual, it's fully graded
+      answers: evaluatedAnswers,
+      isGraded: !requiresManualGrading, // If no manual, it's fully graded
+      malpracticeEvents: test.studentActivity.find(s => s.email === studentEmail)?.malpracticeLogs || []
     });
 
     await result.save();
@@ -1036,5 +1117,6 @@ module.exports = {
   getStudentTest,
   sendWarning,
   removeStudent,
-  shareTestToClass
+  shareTestToClass,
+  logMalpractice
 };

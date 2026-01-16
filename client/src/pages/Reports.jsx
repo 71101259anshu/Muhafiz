@@ -3,14 +3,10 @@ import React, { useState, useEffect } from 'react';
 import './Reports.css';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { FaUsers, FaUserCheck, FaUserTimes, FaChalkboardTeacher, FaChevronLeft, FaChevronRight, FaEnvelope } from 'react-icons/fa';
+import { FaUsers, FaUserCheck, FaUserTimes, FaChevronLeft, FaChevronRight, FaEnvelope } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const emailToName = {
-  'ananya@example.com': 'Ananya Gupta',
-  'rohit@example.com': 'Rohit Sharma',
-  'neha@example.com': 'Neha Verma',
-};
+
 
 export default function Reports() {
 
@@ -20,8 +16,9 @@ export default function Reports() {
   const [loading, setLoading] = useState(true);
   const [activeModal, setActiveModal] = useState(null); // 'attended' | 'absent' | 'total' | null
   const [gradingResult, setGradingResult] = useState(null); // Result being graded
+  const [logViewResult, setLogViewResult] = useState(null); // Result for viewing logs
   const [questions, setQuestions] = useState([]); // Questions for reference
-  const [releaseScores, setReleaseScores] = useState(false); // State for publish status
+
   const [testTitle, setTestTitle] = useState(""); // Title state
 
   useEffect(() => {
@@ -35,7 +32,6 @@ export default function Reports() {
         setStudents(activityRes.data);
         setResults(resultsRes.data);
         setQuestions(testRes.data.questions || []);
-        setReleaseScores(testRes.data.releaseScores || false);
         setTestTitle(testRes.data.title);
       } catch (err) {
         console.error("Error fetching report data", err);
@@ -46,16 +42,7 @@ export default function Reports() {
     fetchReportData();
   }, [testId]);
 
-  const handlePublish = async () => {
-    try {
-      const res = await axios.put(`/api/tests/${testId}/publish`);
-      setReleaseScores(res.data.releaseScores);
-      alert(res.data.message);
-    } catch (err) {
-      console.error("Error publishing results:", err);
-      alert("Failed to update publish status");
-    }
-  };
+
 
   const handleEmailResults = async () => {
     if (!window.confirm("Are you sure you want to email results to ALL students?")) return;
@@ -255,6 +242,7 @@ export default function Reports() {
                 <th>Student</th>
                 <th>Score</th>
                 <th>Status</th>
+                <th>Trust Report</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -268,6 +256,15 @@ export default function Reports() {
                       <span className="badge success">Graded</span> :
                       <span className="badge warning">Needs Grading</span>
                     }
+                  </td>
+                  <td>
+                    {res.malpracticeEvents && res.malpracticeEvents.length > 0 ? (
+                      <button className="log-btn warning" onClick={() => setLogViewResult(res)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}>
+                        ⚠️ {res.malpracticeEvents.length} Warnings
+                      </button>
+                    ) : (
+                      <span style={{ color: '#10b981', fontSize: '0.9rem' }}>✅ Clean</span>
+                    )}
                   </td>
                   <td>
                     <button className="grade-btn" onClick={() => setGradingResult(res)}>Assess Quiz</button>
@@ -333,6 +330,43 @@ export default function Reports() {
             onClose={closeGrading}
             onSave={handleGradeSave}
           />
+        )
+      }
+
+      {/* Log View Modal */}
+      {
+        logViewResult && (
+          <div className="modal-overlay" onClick={() => setLogViewResult(null)}>
+            <div className="modal-box" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+              <h3>⚠️ Malpractice Report: {logViewResult.studentName}</h3>
+              <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '15px' }}>
+                Recorded violations during the test session.
+              </p>
+
+              <div className="logs-list scrollable-list" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                {logViewResult.malpracticeEvents.map((log, idx) => (
+                  <div key={idx} style={{
+                    padding: '10px',
+                    borderLeft: '4px solid #ef4444',
+                    background: '#fef2f2',
+                    marginBottom: '8px',
+                    borderRadius: '0 4px 4px 0'
+                  }}>
+                    <div style={{ fontWeight: 'bold', color: '#b91c1c' }}>{log.type.toUpperCase().replace('_', ' ')}</div>
+                    <div style={{ fontSize: '0.9rem', color: '#7f1d1d' }}>{log.message}</div>
+                    <div style={{ fontSize: '0.8rem', color: '#991b1b', marginTop: '4px' }}>
+                      {new Date(log.timestamp).toLocaleString()}
+                    </div>
+                  </div>
+                ))}
+                {logViewResult.malpracticeEvents.length === 0 && <p>No logs found.</p>}
+              </div>
+
+              <div className="popup-actions">
+                <button className="cancel-btn" onClick={() => setLogViewResult(null)}>Close Report</button>
+              </div>
+            </div>
+          </div>
         )
       }
 
