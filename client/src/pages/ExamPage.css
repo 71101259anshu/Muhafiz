@@ -1,8 +1,10 @@
 /* Ensure Toast is visible in Fullscreen */
 .Toastify__toast-container {
-  z-index: 999999 !important;
+  z-index: 2147483647 !important;
+  /* Max z-index */
   position: fixed;
-  /* Ensure it stays fixed relative to viewport */
+  top: 1rem;
+  right: 1rem;
 }
 
 .exam-page-wrapper {
@@ -458,8 +460,10 @@ input[type="checkbox"] {
   background: #000;
   border: 4px solid #10b981;
   border-radius: 16px;
+  border-radius: 16px;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 2147483640;
+  /* Very high z-index */
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;

@@ -6,7 +6,7 @@ import Webcam from "react-webcam";
 import "./ExamPage.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { io } from 'socket.io-client';
+
 import * as faceapi from 'face-api.js/dist/face-api.js';
 
 const ExamPage = () => {
@@ -18,8 +18,6 @@ const ExamPage = () => {
   const email = localStorage.getItem("email") || JSON.parse(localStorage.getItem("user") || "{}").email;
   const userObj = JSON.parse(localStorage.getItem("user") || "{}");
   const name = userObj.username || userObj.name || "Student";
-  const tabId = useRef(`${Date.now()}-${Math.random()}`);
-  const socketRef = useRef(null);
 
   // === 2. Quiz Data State ===
   const [test, setTest] = useState(null);
@@ -102,33 +100,6 @@ const ExamPage = () => {
     initExam();
   }, [testId, navigate]);
 
-  // === Timer & Auto Submit ===
-  useEffect(() => {
-    if (testStarted && test) {
-      let storedStart = localStorage.getItem(`exam-start-${testId}`);
-      if (!storedStart) {
-        storedStart = Date.now();
-        localStorage.setItem(`exam-start-${testId}`, storedStart);
-      }
-      const endTime = parseInt(storedStart) + (test.duration * 60 * 1000);
-
-      const timer = setInterval(() => {
-        const remaining = endTime - Date.now();
-        if (remaining <= 0) {
-          clearInterval(timer);
-          setTimeLeft("00:00");
-          handleForceSubmit("Time limit reached");
-        } else {
-          const m = Math.floor(remaining / 60000);
-          const s = Math.floor((remaining % 60000) / 1000);
-          setTimeLeft(`${m}:${s < 10 ? '0' : ''}${s}`);
-        }
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [testStarted, test]);
-
-
   // === Answer Handling ===
   const handleOptionChange = (qId, type, value, checked) => {
     setAnswers(prev => {
@@ -167,7 +138,7 @@ const ExamPage = () => {
   };
 
   // === Submission ===
-  const handleSubmit = async () => {
+  const handleSubmit = React.useCallback(async () => {
     try {
       // Create FormData
       const formData = new FormData();
@@ -207,13 +178,61 @@ const ExamPage = () => {
       console.error(err);
       toast.error("Submission failed. Try again.");
     }
-  };
+  }, [answers, testId, email, name, navigate]);
 
-  const handleForceSubmit = (reason) => {
+  const handleForceSubmit = React.useCallback((reason) => {
     setIsTimeUp(true);
     toast.info(`Auto-submitting: ${reason}`);
     handleSubmit();
-  };
+  }, [handleSubmit]);
+
+  // === Timer & Auto Submit ===
+  useEffect(() => {
+    if (testStarted && test) {
+      let storedStart = localStorage.getItem(`exam-start-${testId}`);
+      if (!storedStart) {
+        storedStart = Date.now();
+        localStorage.setItem(`exam-start-${testId}`, storedStart);
+      }
+      const endTime = parseInt(storedStart) + (test.duration * 60 * 1000);
+
+      const timer = setInterval(() => {
+        const remaining = endTime - Date.now();
+        if (remaining <= 0) {
+          clearInterval(timer);
+          setTimeLeft("00:00");
+          handleForceSubmit("Time limit reached");
+        } else {
+          const m = Math.floor(remaining / 60000);
+          const s = Math.floor((remaining % 60000) / 1000);
+          setTimeLeft(`${m}:${s < 10 ? '0' : ''}${s}`);
+        }
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [testStarted, test, testId, handleForceSubmit]);
+
+  // === Proctoring: Helper Logging Function ===
+  const logMalpractice = React.useCallback(async (type, message, snapshot = null) => {
+    // Increment local warning count
+    setWarningCount(prev => prev + 1);
+
+    // Show Toast
+    toast.warn(`⚠️ ${message}`, { containerId: "exam-toast", theme: "colored" });
+
+    // Log to Backend
+    try {
+      await axios.post(`/api/tests/${testId}/log-malpractice`, {
+        email,
+        name,
+        type,
+        message,
+        snapshotUrl: snapshot // If we implement snapshot later
+      });
+    } catch (err) {
+      console.error("Failed to log malpractice", err);
+    }
+  }, [testId, email, name]);
 
   // === Proctoring: Models & Audio ===
   useEffect(() => {
@@ -247,104 +266,137 @@ const ExamPage = () => {
     let faceInterval;
 
     const initProctoring = async () => {
-      // Only start Audio/Face if Biometric is Enabled
-      if (!test?.biometricEnabled) return;
+      // Settings
+      // Settings
+      // Default to strict if settings are missing or empty
+      let settings = test?.proctoringSettings;
+      if (!settings || Object.keys(settings).length === 0) {
+        settings = {
+          restrictTabs: true,
+          restrictFullScreen: true,
+          disableCopyPaste: true,
+          noiseDetection: !!test?.biometricEnabled,
+          multiFaceDetection: !!test?.biometricEnabled
+        };
+      }
 
       // Audio Setup
-      const initAudio = async () => {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          analyser = audioContext.createAnalyser();
-          microphone = audioContext.createMediaStreamSource(stream);
-          javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+      if (settings.noiseDetection) {
+        const initAudio = async () => {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
 
-          analyser.smoothingTimeConstant = 0.8;
-          analyser.fftSize = 1024;
+            analyser.smoothingTimeConstant = 0.8;
+            analyser.fftSize = 1024;
 
-          microphone.connect(analyser);
-          analyser.connect(javascriptNode);
-          javascriptNode.connect(audioContext.destination);
+            microphone.connect(analyser);
+            analyser.connect(javascriptNode);
+            javascriptNode.connect(audioContext.destination);
 
-          javascriptNode.onaudioprocess = () => {
-            const array = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(array);
-            let values = 0;
-            const length = array.length;
-            for (let i = 0; i < length; i++) {
-              values += array[i];
-            }
-            const average = values / length;
+            javascriptNode.onaudioprocess = () => {
+              const array = new Uint8Array(analyser.frequencyBinCount);
+              analyser.getByteFrequencyData(array);
+              let values = 0;
+              const length = array.length;
+              for (let i = 0; i < length; i++) {
+                values += array[i];
+              }
+              const average = values / length;
 
-            if (average > 30) {
-              setWarningCount(prev => prev + 1);
-              console.log("Noise Detected");
-              toast.warn("🎤 Noise Detected! Please maintain silence.", { containerId: "exam-toast", autoClose: 2000 });
-            }
-          };
-        } catch (e) {
-          console.error("Audio detection failed", e);
-        }
-      };
-      initAudio();
+              // Simple Threshold
+              if (average > 40) { // Slightly increased threshold
+                // Debounce or Limit frequency could be added here
+                console.log("Noise Detected");
+                // We avoid spamming backend, maybe stick to toast or check last log time
+                // For now, logging everything but maybe toast autoClose handles spam visually
+                logMalpractice('noise', 'Noise Detected! Please maintain silence.');
+                // Hack to prevent rapid firing: suspend audio briefly? No.
+                // Ideally we'd have a cooldown.
+                javascriptNode.disconnect();
+                setTimeout(() => javascriptNode.connect(audioContext.destination), 3000); // 3s cooldown
+              }
+            };
+          } catch (e) {
+            console.error("Audio detection failed", e);
+          }
+        };
+        initAudio();
+      }
 
       // Face Detection Loop
-      faceInterval = setInterval(async () => {
-        if (webcamRef.current && webcamRef.current.video.readyState === 4) {
-          const video = webcamRef.current.video;
-          const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions());
+      if (test?.biometricEnabled) {
+        faceInterval = setInterval(async () => {
+          if (webcamRef.current && webcamRef.current.video.readyState === 4) {
+            const video = webcamRef.current.video;
+            const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions());
 
-          if (detections.length === 0) {
-            console.log("No Face Detected");
-            setWarningCount(prev => prev + 1);
-            toast.warn("🚫 No Face Detected! Stay in the camera frame.", { containerId: "exam-toast", autoClose: 2000, theme: "colored" });
-          } else if (detections.length > 1) {
-            console.log("Multiple Faces Detected");
-            setWarningCount(prev => prev + 1);
-            toast.error("⚠️ Multiple Faces Detected! Malpractice recorded.", { containerId: "exam-toast", autoClose: 3000, theme: "colored" });
+            if (detections.length === 0) {
+              logMalpractice('no_face', 'No Face Detected! Stay in frame.');
+            } else if (settings.multiFaceDetection && detections.length > 1) {
+              logMalpractice('multiple_faces', 'Multiple Faces Detected!');
+            }
           }
-        }
-      }, 4000);
+        }, 5000); // Check every 5s
+      }
     };
 
     initProctoring();
 
-    // 3. System Locks (Focus, Fullscreen, Copy/Paste)
+    // 3. System Locks
+    // 3. System Locks
+    // Default to strict if settings are missing or empty
+    let settings = test?.proctoringSettings;
+    if (!settings || Object.keys(settings).length === 0) {
+      settings = {
+        restrictTabs: true,
+        restrictFullScreen: true,
+        disableCopyPaste: true,
+        noiseDetection: !!test?.biometricEnabled,
+        multiFaceDetection: !!test?.biometricEnabled
+      };
+    }
+
     const handleFullScreenChange = () => {
-      if (!document.fullscreenElement) {
-        console.log("Fullscreen Exit");
-        setWarningCount(prev => prev + 1);
-        toast.warn("⚠️ Fullscreen exit detected! Return immediately.", { containerId: "exam-toast", theme: "colored" });
+      if (settings.restrictFullScreen && !document.fullscreenElement) {
+        logMalpractice('fullscreen_exit', 'Fullscreen exit detected!');
       }
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
-        console.log("Visibility Change (Tab Switch)");
-        setWarningCount(prev => prev + 1);
-        toast.error("🚫 Tab Switch detected!", { containerId: "exam-toast", theme: "colored" });
+      if (settings.restrictTabs && document.hidden) {
+        logMalpractice('tab_switch', 'Tab Switch detected!');
       }
     };
 
     const handleWindowBlur = () => {
-      console.log("Window Blur");
-      setWarningCount(prev => prev + 1);
-      toast.error("🚫 Focus lost!", { containerId: "exam-toast", theme: "colored" });
+      if (settings.restrictTabs) {
+        logMalpractice('focus_lost', 'Focus lost! Keep exam window active.');
+      }
     };
 
     // Block Copy/Paste/Context
     const preventCopyPaste = (e) => {
-      e.preventDefault();
-      toast.warn("🚫 Copy/Paste is disabled during the exam.", { containerId: "exam-toast" });
+      if (settings.disableCopyPaste) {
+        e.preventDefault();
+        toast.warn("🚫 Copy/Paste is disabled.", { containerId: "exam-toast", autoClose: 1000 });
+      }
     };
     const preventRightClick = (e) => {
-      e.preventDefault();
-      // No toast for right click to avoid spam, just block
+      if (settings.disableCopyPaste) {
+        e.preventDefault();
+      }
     };
     const preventKeys = (e) => {
-      if ((e.ctrlKey || e.metaKey) && ['c', 'v', 'x', 'p', 's'].includes(e.key.toLowerCase())) {
-        e.preventDefault();
-        toast.warn("🚫 Systems Shortcuts are disabled.", { containerId: "exam-toast" });
+      // Block Ctrl+C, Ctrl+V, Alt+Tab (hard to block), Win key etc.
+      if (settings.disableCopyPaste) {
+        if ((e.ctrlKey || e.metaKey) && ['c', 'v', 'x', 'p', 's'].includes(e.key.toLowerCase())) {
+          e.preventDefault();
+          toast.warn("🚫 Systems Shortcuts disabled.", { containerId: "exam-toast", autoClose: 1000 });
+        }
       }
     };
 
@@ -372,7 +424,7 @@ const ExamPage = () => {
       document.removeEventListener('contextmenu', preventRightClick);
       document.removeEventListener('keydown', preventKeys);
     };
-  }, [testStarted, isSubmitModalOpen, isTimeUp, modelsLoaded, test]);
+  }, [testStarted, isSubmitModalOpen, isTimeUp, modelsLoaded, test, logMalpractice]);
 
 
   // === Enforcement: Auto-Submit on Warnings ===
@@ -380,7 +432,7 @@ const ExamPage = () => {
     if (warningCount >= 5) {
       handleForceSubmit("Limit exceeded: Too many malpractice warnings.");
     }
-  }, [warningCount]);
+  }, [warningCount, handleForceSubmit]);
 
   // === Start Exam Function ===
   const startExam = async () => {
@@ -412,13 +464,11 @@ const ExamPage = () => {
               <span>❓ Questions: {questions.length}</span>
             </div>
             <ul className="rules-list">
-              <li>Fullscreen is mandatory.</li>
-              <li>Do not switch tabs.</li>
-              <li>Do not switch tabs.</li>
+              {test?.proctoringSettings?.restrictFullScreen && <li>Fullscreen is mandatory.</li>}
+              {test?.proctoringSettings?.restrictTabs && <li>Do not switch tabs.</li>}
               {test?.biometricEnabled && <li>Face monitoring is active.</li>}
-              {test?.biometricEnabled && <li>Noise detection is active.</li>}
-              <li>No Copy/Paste allowed.</li>
-              <li>No Copy/Paste allowed.</li>
+              {test?.proctoringSettings?.noiseDetection && <li>Noise detection is active.</li>}
+              {test?.proctoringSettings?.disableCopyPaste && <li>No Copy/Paste allowed.</li>}
             </ul>
             <button className="start-btn" onClick={startExam}>Start Exam</button>
           </div>
@@ -585,21 +635,23 @@ const ExamPage = () => {
             </div>
           )}
 
-          <ToastContainer
-            containerId="exam-toast"
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
+
         </div>
       )}
+      <ToastContainer
+        containerId="exam-toast"
+        position="top-right"
+        style={{ zIndex: 2147483647, position: 'fixed', top: '20px', right: '20px' }}
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

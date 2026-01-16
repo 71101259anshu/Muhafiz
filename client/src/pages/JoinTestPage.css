@@ -23,8 +23,9 @@
 }
 
 .join-test-container form {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
@@ -45,24 +46,29 @@
 .join-test-container input {
   padding: 0.9rem 1.1rem;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
   transition: all 0.2s;
-  color: #1e293b;
+  color: #fff;
+}
+
+.join-test-container input::placeholder {
+  color: #94a3b8;
 }
 
 .join-test-container input:focus {
   outline: none;
   border-color: var(--secondary);
   box-shadow: 0 0 0 3px rgba(44, 177, 188, 0.15);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .join-test-container button {
-  background: linear-gradient(135deg, var(--secondary) 0%, #2563eb 100%);
-  color: white;
+  background: var(--secondary);
+  color: #0f172a;
   font-weight: 700;
   padding: 0.9rem;
   border: none;
@@ -71,13 +77,13 @@
   font-size: 1rem;
   margin-top: 0.5rem;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 6px -1px rgba(44, 177, 188, 0.3);
 }
 
 .join-test-container button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 12px -3px rgba(37, 99, 235, 0.4);
-  filter: brightness(1.1);
+  box-shadow: 0 8px 12px -3px rgba(44, 177, 188, 0.4);
+  background: #fff;
 }
 
 .join-test-container button:active {
