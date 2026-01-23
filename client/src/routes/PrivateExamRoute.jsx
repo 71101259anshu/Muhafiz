@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const PrivateExamRoute = ({ children }) => {
   // Always allow exam access
