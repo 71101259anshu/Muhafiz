@@ -433,7 +433,7 @@ function GradingModal({ result, questions, onClose, onSave }) {
                 <div className="file-ans-box">
                   <span className="type-badge">File Upload</span>
                   {currentAns.fileUrl ? (
-                    <a href={`http://localhost:5000${currentAns.fileUrl}`} target="_blank" rel="noopener noreferrer" className="file-link-btn primary">
+                    <a href={`${process.env.REACT_APP_API_URL || "http://localhost:5000"}${currentAns.fileUrl}`} target="_blank" rel="noopener noreferrer" className="file-link-btn primary">
                       📄 View Student's File
                     </a>
                   ) : <span className="no-ans">No file uploaded</span>}

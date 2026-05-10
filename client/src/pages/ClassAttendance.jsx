@@ -57,7 +57,7 @@ const ClassAttendance = () => {
                     </button>
                     <button
                         className="cancel-btn"
-                        onClick={() => navigate(`/class/${classId}`)}
+                        onClick={() => navigate(-1)}
                     >
                         Cancel
                     </button>

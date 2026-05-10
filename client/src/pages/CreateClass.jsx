@@ -80,7 +80,7 @@ const CreateClass = () => {
                     </div>
 
                     <div className="form-actions">
-                        <button type="button" className="cancel-btn" onClick={() => navigate('/classroom')}>Cancel</button>
+                        <button type="button" className="cancel-btn" onClick={() => navigate(-1)}>Cancel</button>
                         <button type="submit" className="create-btn">Create</button>
                     </div>
                 </form>

@@ -10,10 +10,10 @@ export default function BackToDashboard() {
       className="back-floating-btn"
       onClick={() => {
         console.log("clicked");
-        navigate('/admin/dashboard');
+        navigate(-1);
       }}
     >
-      ⬅ Back to Dashboard
+      ⬅ Go Back
     </button>
   );
 }

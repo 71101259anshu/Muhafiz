@@ -46,7 +46,7 @@ export default function FaceVerificationPage() {
         }
 
         try {
-          const res = await axios.get('http://localhost:5000/api/users/biometric', {
+          const res = await axios.get(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/biometric`, {
             headers: { Authorization: `Bearer ${token}` }
           });
 
@@ -61,7 +61,7 @@ export default function FaceVerificationPage() {
             let imgUrl = res.data.photoUrl;
             // If it's NOT a data URI and NOT a full URL, prepend localhost
             if (!imgUrl.startsWith('data:') && !imgUrl.startsWith('http')) {
-              imgUrl = `http://localhost:5000${imgUrl}`;
+              imgUrl = `${process.env.REACT_APP_API_URL || "http://localhost:5000"}${imgUrl}`;
             }
 
             try {

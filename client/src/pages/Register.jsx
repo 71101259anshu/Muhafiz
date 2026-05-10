@@ -5,10 +5,29 @@ import './Register.css';
 import { useNavigate, Link } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import { toast } from 'react-toastify';
+import { AuthContext } from "../context/AuthContext";
+import { jwtDecode } from 'jwt-decode';
 
 const Register = () => {
 
   const navigate = useNavigate();
+  const { token, user } = React.useContext(AuthContext);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const role = user?.role || jwtDecode(token).role;
+        if (role === 'admin') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate('/', { replace: true });
+        }
+      } catch (err) {
+        console.error("Token decode error", err);
+      }
+    }
+  }, [token, user, navigate]);
+
   const webcamRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [formData, setFormData] = useState({
@@ -85,7 +104,7 @@ const Register = () => {
       formData.append("email", email);
       formData.append("face", file);
 
-      const res = await axios.post('http://localhost:5000/api/upload-face', formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/upload-face`, formData);
       toast.success(res.data || 'Face image uploaded successfully!');
     } catch (err) {
       console.error(err);
@@ -98,7 +117,7 @@ const Register = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/register`, {
         username: formData.name,
         email: formData.email,
         password: formData.password,
@@ -111,10 +130,8 @@ const Register = () => {
       // ✅ Upload face after registration
       await uploadFaceImage(formData.email, capturedImage);
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('role', response.data.role);
-      toast.success('Registered Successfully!');
-      navigate('/dashboard');
+      toast.success('Registered Successfully! Please log in.');
+      navigate('/login');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
     }
@@ -128,7 +145,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/users/send-otp', { email: formData.email });
+      await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/send-otp`, { email: formData.email });
       setOtpSent(true);
       toast.info(`OTP sent to ${formData.email}`);
     } catch (error) {

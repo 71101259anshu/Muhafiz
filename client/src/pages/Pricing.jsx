@@ -1,70 +1,67 @@
-import React, { useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
+import React from 'react';
+
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 import './Pricing.css';
 
 const plans = [
   {
-    title: 'Free Plan',
-    price: '₹0',
+    title: 'Starter',
+    price: '₹0/month',
     features: [
-      '1 Proctored Test',
+      'Up to 5 Students per Class',
+      '2 Proctored Tests Included',
       'Face Verification',
       'Limited Report Access',
     ],
   },
   {
-    title: 'Pro Plan',
-    price: '₹499/month',
+    title: 'Standard',
+    price: '₹699/month',
     features: [
-      'Unlimited Tests',
+      '6 to 60 Students per Class',
+      '6 Proctored Tests Included',
       'Multiple Person Detection',
       'Voice & Tab Switching Alerts',
-      'Detailed Analytics Dashboard',
     ],
   },
   {
-    title: 'Enterprise',
-    price: 'Custom Pricing',
+    title: 'Premium',
+    price: '₹1699/month',
     features: [
-      'Integration with LMS/Google Forms',
+      '61 to 160 Students per Class',
+      '10 Proctored Tests Included',
+      'Detailed Analytics Dashboard',
       'Live Admin Monitoring',
-      'Dedicated Support',
     ],
   },
 ];
 
 const Pricing = () => {
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+
   return (
     <div className="pricing-wrapper">
-      <Link to="/" className="back-btn">← Back to Home</Link>
-      <h1 className="pricing-title">Choose the Right Plan for You
-        <br/>(Not active currently)</h1>
-      <div className="pricing-cards">
-        {plans.map((plan, index) => (
-          <div className="pricing-card" key={index}>
-            <h3>{plan.title}</h3>
-            <p className="price">{plan.price}</p>
-            <ul>
-              {plan.features.map((feature, i) => (
-                <li key={i}>{feature}</li>
-              ))}
-            </ul>
-            <button className="btn pricing-btn">Get Started</button>
-          </div>
-        ))}
+      <Navbar />
+      <div className="pricing-content">
+        <h1 className="pricing-title">Choose the Right Plan for You
+          <br />(Not active currently)</h1>
+        <div className="pricing-cards">
+          {plans.map((plan, index) => (
+            <div className="pricing-card" key={index}>
+              <h3>{plan.title}</h3>
+              <p className="price">{plan.price}</p>
+              <ul>
+                {plan.features.map((feature, i) => (
+                  <li key={i}>{feature}</li>
+                ))}
+              </ul>
+              <button className="btn pricing-btn">Get Started</button>
+            </div>
+          ))}
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -25,7 +25,7 @@ const upload = multer({ storage });
 router.post('/', protect, upload.single('file'), createClasswork);
 router.get('/:classId', protect, getClasswork);
 router.delete('/:id', protect, deleteClasswork);
-router.put('/:id', protect, updateClasswork);
+router.put('/:id', protect, upload.single('file'), updateClasswork);
 
 // Submission Routes
 router.post('/:id/submit', protect, upload.array('files', 5), submissionController.submitAssignment); // Allow up to 5 files

@@ -514,7 +514,7 @@ const ExamPage = () => {
                     </>
                   ) : (
                     <>
-                      {q.image && <img src={`http://localhost:5000${q.image}`} className="q-image" alt="Visual" />}
+                      {q.image && <img src={`${process.env.REACT_APP_API_URL || "http://localhost:5000"}${q.image}`} className="q-image" alt="Visual" />}
 
                       <h3 className="q-text">
                         <span className="q-num">{idx + 1}.</span> {q.text}

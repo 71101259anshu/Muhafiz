@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
+
 import { Link } from 'react-router-dom';
 import './Blog.css';
 import BlogPost from '../components/BlogPost/BlogPost';
@@ -13,17 +13,7 @@ const sharedContent = (
 );
 
 const Blog = () => {
-    useEffect(() => {
-        const lenis = new Lenis();
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-        return () => {
-            lenis.destroy();
-        };
-    }, []);
+
     return (
         <div className="blog-wrapper">
             <Link to="/" className="back-btn">← Back to Home</Link>

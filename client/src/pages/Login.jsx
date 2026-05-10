@@ -12,7 +12,22 @@ const Login = () => {
 
 
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, token, user } = useContext(AuthContext);
+
+  React.useEffect(() => {
+    if (token) {
+      try {
+        const role = user?.role || jwtDecode(token).role;
+        if (role === 'admin') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate('/', { replace: true });
+        }
+      } catch (err) {
+        console.error("Token decode error", err);
+      }
+    }
+  }, [token, user, navigate]);
 
   const [emailLogin, setEmailLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
@@ -36,7 +51,7 @@ const Login = () => {
         password: passwordLogin
       });
 
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/login`, {
         email: emailLogin,
         password: passwordLogin,
       });
@@ -57,9 +72,9 @@ const Login = () => {
       // redirect: Admin -> Dashboard, Others (Student/Teacher) -> Home
       const role = user?.role || (token ? (jwtDecode(token).role) : null);
       if (role === 'admin') {
-        navigate('/admin');
+        navigate('/admin', { replace: true });
       } else {
-        navigate('/');
+        navigate('/', { replace: true });
       }
     } catch (error) {
       console.error("❌ Login failed:", error);
@@ -80,7 +95,7 @@ const Login = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/users/send-reset-otp', { email: resetEmail });
+      await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/send-reset-otp`, { email: resetEmail });
       toast.success("OTP sent to your email");
       setStep(2);
     } catch (err) {
@@ -95,7 +110,7 @@ const Login = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/users/reset-password', {
+      await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/reset-password`, {
         email: resetEmail,
         otp,
         newPassword,

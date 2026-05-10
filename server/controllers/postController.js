@@ -1,57 +1,77 @@
+const mongoose = require('mongoose');
 const Post = require('../models/Post');
 const Class = require('../models/Class');
 
 // Create Post
 const createPost = async (req, res) => {
-    console.log('Create Post Request Body:', req.body);
-    console.log('Create Post Request File:', req.file);
-    const { content, classId } = req.body;
+    // console.log('Create Post Request Body:', req.body);
+    // console.log('Create Post Request File:', req.file);
+    const { content, classId, isPrivate, recipient } = req.body;
 
     if (!content && !req.file) {
         return res.status(400).json({ message: 'Content or file is required' });
     }
 
     try {
-        const postData = {
-            content: content || '',
+        const newPost = new Post({
+            content,
             class: classId,
             author: req.user._id,
-            attachments: []
-        };
+            isPrivate: isPrivate === 'true' || isPrivate === true,
+            // recipient: recipient && recipient !== 'undefined' && recipient !== '' ? recipient : null
+            // Better to strictly check if it looks like an ObjectId or just rely on truthy logic if we know it's a string
+            recipient: (recipient && recipient.match(/^[0-9a-fA-F]{24}$/)) ? recipient : null
+        });
 
         if (req.file) {
-            // Assuming the server serves 'uploads' folder statically
-            const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-            postData.attachments.push({
-                url: fileUrl,
+            newPost.attachments.push({
+                url: `/uploads/${req.file.filename}`,
                 name: req.file.originalname,
                 type: req.file.mimetype
             });
         }
 
-        const newPost = await Post.create(postData);
+        const savedPost = await newPost.save();
 
-        const populatedPost = await Post.findById(newPost._id)
-            .populate('author', 'username photo');
+        // Populate author details for immediate UI update
+        await savedPost.populate('author', 'username photo');
 
-        if (global.io) {
-            global.io.emit('new_post', populatedPost);
-        }
+        const io = req.app.get('io');
+        io.emit('new_post', savedPost);
 
-        res.status(201).json(populatedPost);
+        res.status(201).json(savedPost);
     } catch (err) {
-        console.error(err); // Improved logging
-        res.status(500).json({ message: err.message, error: err });
+        console.error("Create Post Error:", err);
+        res.status(500).json({ message: 'Server Error: ' + err.message });
     }
 };
 
 // Get Posts for a Class
 const getClassPosts = async (req, res) => {
     try {
-        const posts = await Post.find({ class: req.params.classId })
-            .sort({ createdAt: -1 }) // Newest first
+        // Fetch all posts for the class first
+        const allPosts = await Post.find({ class: req.params.classId })
             .populate('author', 'username photo')
-            .populate('comments.author', 'username photo');
+            .populate('comments.author', 'username photo')
+            .sort({ createdAt: -1 });
+
+        // Filter in memory to handle ID comparisons reliably
+        const posts = allPosts.filter(post => {
+            if (!post.isPrivate) return true; // Public posts always visible
+
+            const userId = req.user._id.toString();
+            const authorId = post.author?._id?.toString();
+            const recipientId = post.recipient?.toString();
+
+            // console.log(`Checking Post ${post._id}: User=${userId}, Author=${authorId}, Recipient=${recipientId}`);
+
+            return (authorId === userId) || (recipientId === userId);
+        });
+
+        // console.log(`Found ${posts.length} posts for user ${req.user._id}`);
+        // posts.forEach(p => {
+        //     if (p.isPrivate) console.log(`Private Post found: ${p._id} | Author: ${p.author._id} | Recipient: ${p.recipient}`);
+        // });
 
         res.json(posts);
     } catch (err) {

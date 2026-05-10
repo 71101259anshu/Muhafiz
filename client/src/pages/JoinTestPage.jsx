@@ -20,7 +20,7 @@ export default function JoinTestPage() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/tests/validate-invite', {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/tests/validate-invite`, {
         email,
         inviteCode,
       });

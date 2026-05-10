@@ -166,6 +166,15 @@ const updateClasswork = async (req, res) => {
         if (dueDate !== undefined) item.dueDate = (dueDate && dueDate !== 'undefined' && dueDate !== '') ? dueDate : null;
         if (maxGrade) item.maxGrade = maxGrade;
 
+        if (req.file) {
+            const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+            item.attachments = [{
+                url: fileUrl,
+                name: req.file.originalname,
+                fileType: req.file.mimetype
+            }];
+        }
+
         await item.save();
         res.json(item);
     } catch (err) {

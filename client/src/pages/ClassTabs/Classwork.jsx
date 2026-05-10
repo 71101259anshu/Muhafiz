@@ -73,17 +73,15 @@ const Classwork = ({ classId, filterType, className }) => { // Accept filterType
             // Check if editing or creating
             if (editingId) {
                 // UPDATE
-                // We'll send JSON for update to keep it simple, or FormData if we wanted file updates (skipping file updates for now as per requirement focus on deadline)
-                // Actually, let's just stick to JSON for deadline/details update as multer logic might need tweaks for optional file replacement
-                const payload = {
-                    title,
-                    description,
-                    topic,
-                    dueDate,
-                    maxGrade
-                };
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('description', description);
+                formData.append('topic', topic);
+                if (dueDate) formData.append('dueDate', dueDate);
+                formData.append('maxGrade', maxGrade);
+                if (selectedFile) formData.append('file', selectedFile);
 
-                await axios.put(`/api/classwork/${editingId}`, payload, {
+                await axios.put(`/api/classwork/${editingId}`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert('Updated successfully');

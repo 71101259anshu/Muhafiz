@@ -56,7 +56,7 @@ const JoinClass = () => {
                         required
                     />
                     <div className="actions">
-                        <button type="button" className="cancel-btn" onClick={() => navigate('/classroom')}>Cancel</button>
+                        <button type="button" className="cancel-btn" onClick={() => navigate(-1)}>Cancel</button>
                         <button type="submit" className="join-btn" disabled={!joinCode || loading}>
                             {loading ? 'Joining...' : 'Join'}
                         </button>

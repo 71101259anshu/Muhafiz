@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { FaUserCircle } from 'react-icons/fa';
 import './People.css';
+import { AuthContext } from '../../context/AuthContext';
 
 const People = ({ classId }) => {
+    const { user } = useContext(AuthContext);
     const [teacher, setTeacher] = useState(null);
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,12 +28,21 @@ const People = ({ classId }) => {
         fetchPeople();
     }, [classId]);
 
-    // const handleRemoveStudent = async (studentId, studentName) => {
-    //     if (!window.confirm(`Are you sure you want to remove ${studentName}?`)) return;
+    const handleRemoveStudent = async (studentId, studentName) => {
+        if (!window.confirm(`Are you sure you want to remove ${studentName}?`)) return;
 
-    //     // TODO: Implement remove student API endpoint if needed
-    //     alert('Remove functionality to be implemented in backend');
-    // };
+        try {
+            const token = localStorage.getItem('token');
+            await axios.post(`/api/classes/${classId}/remove-student`, { studentId }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setStudents(prev => prev.filter(s => s._id !== studentId));
+            alert(`${studentName} has been removed from the class.`);
+        } catch (err) {
+            console.error(err);
+            alert(err.response?.data?.message || 'Failed to remove student');
+        }
+    };
 
     if (loading) return <div className="loading-people">Loading people...</div>;
 
@@ -81,13 +92,16 @@ const People = ({ classId }) => {
                                     <span className="person-email">{s.email}</span>
                                 </div>
                             </div>
-                            {/* Only show remove button for admin - logical check needed here or in backend */}
-                            {/* <button
-                                className="remove-student-btn"
-                                onClick={() => handleRemoveStudent(s._id, s.name)}
-                            >
-                                Remove
-                            </button> */}
+                            {/* Only show remove button for admin */}
+                            {user?.role === 'admin' && (
+                                <button
+                                    className="remove-student-btn"
+                                    onClick={() => handleRemoveStudent(s._id, s.username)}
+                                    style={{ padding: '6px 12px', backgroundColor: '#e53e3e', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                                >
+                                    Remove
+                                </button>
+                            )}
                         </div>
                     ))
                 )}
