@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { sendOtp, verifyOtp } = require('./otpController');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 
 // Generate JWT
@@ -105,21 +105,26 @@ const sendResetOtp = async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 };
 
-  // Send email using nodemailer
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    }
-  });
-
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: 'Password Reset OTP',
-    text: `Your OTP is: ${otp}`,
-  });
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: 'Kvizroom <onboarding@resend.dev>',
+      to: email,
+      subject: 'Your Kvizroom Password Reset OTP',
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: auto; padding: 32px; background: #f9fafb; border-radius: 12px;">
+          <h2 style="color: #4f46e5; margin-bottom: 8px;">Password Reset</h2>
+          <p style="color: #374151;">Use the OTP below to reset your Kvizroom password. It expires in <strong>5 minutes</strong>.</p>
+          <div style="font-size: 2.5rem; font-weight: 900; letter-spacing: 12px; color: #111827; background: #e0e7ff; padding: 16px 24px; border-radius: 8px; text-align: center; margin: 24px 0;">${otp}</div>
+          <p style="color: #6b7280; font-size: 0.85rem;">If you did not request this, ignore this email.</p>
+        </div>
+      `,
+    });
+  } catch (emailErr) {
+    console.error('Failed to send OTP email:', emailErr.message);
+    // Still respond — OTP is stored in memory, user can retry
+    return res.status(500).json({ message: 'Failed to send OTP email. Check server email config.' });
+  }
 
   res.status(200).json({ message: 'OTP sent to your email' });
 };
