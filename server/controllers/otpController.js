@@ -33,8 +33,16 @@ const sendOtp = async (req, res) => {
     res.status(200).json({ message: 'OTP sent successfully' });
 
   } catch (error) {
-    console.error('Failed to send OTP:', error.message);
-    res.status(500).json({ message: 'Failed to send OTP. Please try again.' });
+    // Log full Resend error details to Render logs
+    console.error('=== OTP SEND FAILED ===');
+    console.error('To:', email);
+    console.error('Resend error name:', error?.name);
+    console.error('Resend error message:', error?.message);
+    console.error('Resend statusCode:', error?.statusCode);
+    console.error('Resend response:', JSON.stringify(error?.response ?? error));
+    res.status(500).json({
+      message: `Failed to send OTP: ${error?.message || 'Unknown error'}`,
+    });
   }
 };
 
