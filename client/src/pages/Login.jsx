@@ -51,7 +51,7 @@ const Login = () => {
         password: passwordLogin
       });
 
-      const response = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/users/login`, {
         email: emailLogin,
         password: passwordLogin,
       });
@@ -95,7 +95,7 @@ const Login = () => {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/send-reset-otp`, { email: resetEmail });
+      await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/users/send-reset-otp`, { email: resetEmail });
       toast.success("OTP sent to your email");
       setStep(2);
     } catch (err) {
@@ -110,7 +110,7 @@ const Login = () => {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/reset-password`, {
+      await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/users/reset-password`, {
         email: resetEmail,
         otp,
         newPassword,

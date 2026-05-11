@@ -104,7 +104,7 @@ const Register = () => {
       formData.append("email", email);
       formData.append("face", file);
 
-      const res = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/upload-face`, formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/upload-face`, formData);
       toast.success(res.data || 'Face image uploaded successfully!');
     } catch (err) {
       console.error(err);
@@ -117,7 +117,7 @@ const Register = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/register`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/users/register`, {
         username: formData.name,
         email: formData.email,
         password: formData.password,
@@ -145,7 +145,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}/api/users/send-otp`, { email: formData.email });
+      await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/users/send-otp`, { email: formData.email });
       setOtpSent(true);
       toast.info(`OTP sent to ${formData.email}`);
     } catch (error) {
