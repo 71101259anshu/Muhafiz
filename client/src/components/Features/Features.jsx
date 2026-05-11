@@ -79,24 +79,32 @@ const Features = () => {
         </div>
 
         <div className="features-grid">
-          <AnimatePresence mode="wait">
-            {features[activeRole].map((feature, index) => (
-              <motion.div
-                key={`${activeRole}-${index}`}
-                className="feature-card"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                whileHover={{ y: -10 }}
-              >
-                <div className="feature-icon-wrapper">
-                  {feature.icon}
-                </div>
-                <h3>{feature.title}</h3>
-                <p>{feature.desc}</p>
-              </motion.div>
-            ))}
+          <AnimatePresence>
+            <motion.div
+              key={activeRole}
+              className="features-grid-inner"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {features[activeRole].map((feature, index) => (
+                <motion.div
+                  key={`${activeRole}-${index}`}
+                  className="feature-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.07 }}
+                  whileHover={{ y: -10 }}
+                >
+                  <div className="feature-icon-wrapper">
+                    {feature.icon}
+                  </div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
           </AnimatePresence>
         </div>
       </div>

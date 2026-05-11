@@ -8,75 +8,64 @@
   z-index: 1000;
   width: 100%;
   box-sizing: border-box;
-  background: rgba(15, 23, 42, 0.9);
-  /* Dark background matching theme */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  /* Base — video sits below */
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 /* Scrolled State */
 .navbar.scrolled {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  background: rgba(15, 23, 42, 0.98);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 /* --- Brand Logo Styling --- */
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-}
-
-.logo-icon-wrapper {
+.logo-container,
+.brand-logo,
+.logo-icon-wrapper,
+.brand-text,
+.nav-links,
+.nav-links ul,
+.menu-toggle {
   position: relative;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 2;
 }
 
 .shield-icon {
   font-size: 36px;
-  color: var(--secondary);
-  /* Teal Shield for visibility on dark */
+  color: var(--primary);
 }
 
 .check-icon {
   position: absolute;
   font-size: 16px;
   color: white;
-  background: var(--primary);
+  background: var(--secondary);
   border-radius: 50%;
   bottom: 0;
   right: -4px;
-  border: 2px solid var(--primary);
+  border: 2px solid var(--secondary);
 }
 
 .brand-text {
-  font-family: 'Outfit', var(--font-main);
+  font-family: var(--font-main);
   font-size: 1.6rem;
   line-height: 1;
   letter-spacing: -0.5px;
+  position: relative;
+  z-index: 2;
 }
 
 .brand-primary {
   font-weight: 800;
-  color: white;
-  /* White text */
+  color: #ffffff;
 }
 
 .brand-secondary {
   font-weight: 500;
-  color: var(--secondary);
+  color: #a5b4fc;
 }
 
 /* Old Logo Styles Removed */
@@ -94,8 +83,7 @@
 .bar {
   width: 25px;
   height: 3px;
-  background: white;
-  /* White bars */
+  background: #ffffff;
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -103,6 +91,8 @@
 .nav-links {
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .nav-links ul {
@@ -116,37 +106,38 @@
 
 .nav-links ul li a {
   text-decoration: none;
-  color: #e2e8f0;
-  /* Light text */
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
   font-size: 0.95rem;
   transition: color 0.2s ease;
 }
 
 .nav-links ul li a:hover {
-  color: var(--secondary);
+  color: #ffffff;
 }
 
 .nav-highlight {
-  color: var(--secondary) !important;
-  font-weight: 600 !important;
+  color: #a5b4fc !important;
+  font-weight: 700 !important;
 }
 
 .btn-nav-register {
-  background: var(--secondary);
+  background: rgba(255, 255, 255, 0.15);
   color: white !important;
   padding: 10px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  box-shadow: none;
   transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
 }
 
 .btn-nav-register:hover {
   transform: translateY(-2px);
-  background: white;
-  color: var(--primary) !important;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  color: white !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Avatar Styling */
@@ -166,13 +157,13 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e2e8f0;
+  border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .avatar-circle {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #4a90e2 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   color: white;
   font-weight: 700;
   font-size: 1rem;
@@ -181,8 +172,8 @@
   align-items: center;
   justify-content: center;
   user-select: none;
-  border: 2px solid white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Mobile Styles */
@@ -195,13 +186,14 @@
     position: absolute;
     top: 70px;
     right: 1rem;
-    background: white;
+    background: rgba(10, 10, 40, 0.92);
+    backdrop-filter: blur(20px);
     width: 250px;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     flex-direction: column;
     padding: 1.5rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: none;
   }
 

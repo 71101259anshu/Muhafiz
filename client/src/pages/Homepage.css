@@ -2,7 +2,40 @@
 .homepage-wrapper {
     width: 100%;
     min-height: 100vh;
-    /* Seamless Enterprise Gradient covering all sections */
-    background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
+    background: var(--bg-body);
     position: relative;
+}
+
+/* === SHARED VIDEO BACKGROUND (Navbar + Hero) === */
+.homepage-video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Only cover the navbar + hero viewport, not the rest of the page */
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.85);
+    pointer-events: none;
+}
+
+.homepage-video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background: linear-gradient(135deg,
+            rgba(5, 3, 20, 0.88) 0%,
+            rgba(10, 5, 40, 0.80) 50%,
+            rgba(3, 2, 15, 0.88) 100%);
+    pointer-events: none;
+}
+
+/* Stop the fixed video from showing under other sections */
+.homepage-wrapper>*:not(.homepage-video-bg):not(.homepage-video-overlay) {
+    position: relative;
+    z-index: 2;
 }

@@ -1,19 +1,19 @@
 .prefooter-wrapper {
-  background: #f8fafc;
+  background: var(--bg-body);
   padding: 6rem 2rem;
 }
 
 .get-started {
   text-align: center;
-  background: linear-gradient(135deg, #4a90e2 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   color: white;
   padding: 4rem 2rem;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   margin-bottom: 5rem;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 20px 40px rgba(118, 75, 162, 0.2);
+  box-shadow: 0 20px 40px var(--primary-glow);
 }
 
 .get-started h2 {
@@ -33,9 +33,9 @@
 
 .cta-btn {
   background: white;
-  color: #4a90e2;
+  color: var(--primary);
   padding: 16px 36px;
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 1.1rem;
   text-decoration: none;
@@ -45,8 +45,8 @@
 
 .cta-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  color: #764ba2;
+  box-shadow: var(--shadow-lg);
+  color: var(--primary-light);
 }
 
 .integration-content {
@@ -58,23 +58,23 @@
 }
 
 .integration-card {
-  background: white;
+  background: var(--bg-panel);
   padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   text-align: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
 }
 
 .highlight-card {
-  background: linear-gradient(135deg, #fff 0%, #f7fafc 100%);
-  border-color: #cbd5e0;
+  background: var(--bg-body);
+  border-color: var(--primary);
 }
 
 .icon-badge {
   width: 80px;
   height: 80px;
-  background: #ebf8ff;
+  background: var(--primary-glow);
   border-radius: 50%;
   margin: 0 auto 1.5rem;
   display: flex;
@@ -89,11 +89,11 @@
 
 .integration-card h3 {
   font-size: 1.5rem;
-  color: #2d3748;
+  color: var(--text-main);
   margin-bottom: 1rem;
 }
 
 .integration-card p {
-  color: #718096;
+  color: var(--text-muted);
   line-height: 1.6;
 }

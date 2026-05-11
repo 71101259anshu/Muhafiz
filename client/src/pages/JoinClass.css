@@ -3,56 +3,54 @@
     justify-content: center;
     align-items: center;
     height: 90vh;
-    background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
+    background: var(--bg-body);
 }
 
 .join-class-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--bg-panel);
     padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
     width: 100%;
     max-width: 400px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .join-class-card h2 {
     margin-bottom: 1rem;
-    color: #fff;
+    color: var(--text-main);
 }
 
 .join-class-card p {
     margin-bottom: 2rem;
-    color: #cbd5e1;
+    color: var(--text-muted);
     font-size: 0.95rem;
 }
 
 .join-class-card input {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    background: var(--bg-body);
     border-radius: 4px;
     font-size: 1.1rem;
     text-align: center;
     letter-spacing: 1px;
     margin-bottom: 2rem;
-    color: #fff;
+    color: var(--text-main);
     box-sizing: border-box;
 }
 
 .join-class-card input::placeholder {
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 .join-class-card input:focus {
-    border-color: var(--secondary);
+    border-color: var(--primary);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(44, 177, 188, 0.15);
-    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+    background: var(--bg-panel);
 }
 
 .actions {
@@ -62,8 +60,8 @@
 }
 
 .join-btn {
-    background: var(--secondary);
-    color: #0f172a;
+    background: var(--primary);
+    color: white;
     border: none;
     padding: 10px 24px;
     border-radius: 4px;
@@ -74,21 +72,21 @@
 }
 
 .join-btn:disabled {
-    background: rgba(255, 255, 255, 0.1);
-    color: #94a3b8;
+    background: var(--border-color);
+    color: var(--text-muted);
     cursor: not-allowed;
 }
 
 .join-btn:not(:disabled):hover {
-    background: #fff;
+    background: var(--primary-light);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(44, 177, 188, 0.4);
+    box-shadow: var(--shadow-md);
 }
 
 .cancel-btn {
     background: transparent;
-    color: #cbd5e1;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
     padding: 10px 24px;
     border-radius: 4px;
     font-weight: 600;
@@ -98,7 +96,6 @@
 }
 
 .cancel-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-color: #fff;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-main);
 }

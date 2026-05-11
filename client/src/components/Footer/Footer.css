@@ -1,105 +1,183 @@
+/* ===== FOOTER ===== */
 .footer {
-  background: #1a202c;
-  color: #a0aec0;
-  padding: 5rem 2rem 2rem;
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
   font-size: 0.95rem;
+  color: var(--text-muted);
 }
 
-.footer-content {
+.footer-inner {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 4rem;
-  border-bottom: 1px solid #2d3748;
+  padding: 5rem 2rem 2rem;
+}
+
+/* ===== TOP GRID ===== */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 3rem;
   padding-bottom: 4rem;
-  margin-bottom: 2rem;
 }
 
+/* ===== BRAND COLUMN ===== */
 .footer-brand {
-  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.brand-logo {
+.footer-tagline {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 0.9rem;
+  max-width: 280px;
+  margin: 0;
+}
+
+.footer-contact-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-  color: white;
-  font-size: 1.5rem;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
 }
 
-.brand-logo img {
-  height: 40px;
-  width: auto;
+.footer-contact-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+  font-size: 0.85rem;
 }
 
-.footer-links {
-  display: flex;
-  gap: 4rem;
-  flex-wrap: wrap;
-}
-
-.link-column h4 {
-  color: white;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
+/* ===== LINK COLUMNS ===== */
 .link-column {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.75rem;
+}
+
+.footer-col-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-main);
+  margin: 0 0 0.5rem 0;
 }
 
 .link-column a {
-  color: #a0aec0;
+  color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.2s;
+  font-size: 0.9rem;
+  transition: color 0.2s, padding-left 0.2s;
+  display: inline-block;
 }
 
 .link-column a:hover {
-  color: #4a90e2;
+  color: var(--primary);
+  padding-left: 4px;
 }
 
+/* ===== SOCIAL COLUMN ===== */
+.footer-social-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.social-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.social-chip:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ===== DIVIDER ===== */
+.footer-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin-bottom: 2rem;
+}
+
+/* ===== BOTTOM BAR ===== */
 .footer-bottom {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-.social-links {
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-bottom-links {
   display: flex;
   gap: 1.5rem;
 }
 
-.social-links a {
-  color: #a0aec0;
-  font-size: 1.2rem;
+.footer-bottom-links a {
+  color: var(--text-muted);
+  text-decoration: none;
   transition: color 0.2s;
 }
 
-.social-links a:hover {
-  color: white;
+.footer-bottom-links a:hover {
+  color: var(--primary);
 }
 
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    gap: 2rem;
+.footer-made-with {
+  font-size: 0.85rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    padding: 3rem 1.25rem 1.5rem;
   }
 
-  .footer-links {
+  .footer-grid {
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 1rem;
     text-align: center;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
   }
 }

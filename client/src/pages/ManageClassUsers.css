@@ -1,38 +1,31 @@
 .manage-class-users {
     padding: 2rem;
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
-    /* Enterprise Dark Gradient matching other pages */
-    background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
+    font-family: var(--font-main);
+    background: var(--bg-body);
     background-attachment: fixed;
-    color: #e2e8f0;
+    color: var(--text-main);
 }
 
 .page-header {
     text-align: center;
     margin-bottom: 2.5rem;
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-panel);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 .page-header h1 {
     font-size: 2.25rem;
     font-weight: 800;
-    color: #1a202c;
+    color: var(--text-main);
     margin: 0 0 0.5rem 0;
-    background: linear-gradient(120deg, #2b6cb0, #4299e1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    /* Fix lint */
-    -webkit-text-fill-color: transparent;
 }
 
 .page-header p {
-    color: #718096;
+    color: var(--text-muted);
     font-size: 1.1rem;
     margin: 0;
 }
@@ -41,22 +34,21 @@
 .class-selector-container {
     max-width: 600px;
     margin: -1.5rem auto 2.5rem auto;
-    /* Overlap header slightly */
-    background: white;
+    background: var(--bg-panel);
     padding: 1.25rem 2rem;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;
     gap: 1.5rem;
     position: relative;
     z-index: 10;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
 }
 
 .selector-label {
     font-weight: 600;
-    color: #4a5568;
+    color: var(--text-main);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -66,20 +58,20 @@
 .class-select-dropdown {
     flex: 1;
     padding: 0.75rem 1rem;
-    border: 1px solid #cbd5e0;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
-    color: #2d3748;
-    background-color: #f7fafc;
+    color: var(--text-main);
+    background-color: var(--bg-body);
     outline: none;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .class-select-dropdown:focus {
-    border-color: #4299e1;
-    background-color: white;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+    border-color: var(--primary);
+    background-color: var(--bg-panel);
+    box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 /* Tabs */
@@ -96,50 +88,47 @@
 }
 
 .tab-btn {
-    background: white;
-    border: 1px solid #e2e8f0;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
-    /* Pill shape */
     font-weight: 600;
-    color: #718096;
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.95rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--shadow-sm);
 }
 
 .tab-btn:hover {
-    background: #f7fafc;
-    color: #4a5568;
+    background: var(--bg-body);
+    color: var(--text-main);
     transform: translateY(-1px);
 }
 
 .tab-btn.active {
-    background: #3182ce;
-    /* Corporate Blue */
+    background: var(--primary);
     color: white;
-    border-color: #3182ce;
+    border-color: var(--primary);
     box-shadow: none;
 }
 
 .tab-btn.active::after {
     content: none;
-    /* remove any leaking underlines */
     display: none;
 }
 
 /* Content Panel */
 .tab-content {
-    background: white;
+    background: var(--bg-panel);
     padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
     min-height: 400px;
-    border: 1px solid #edf2f7;
+    border: 1px solid var(--border-color);
 }
 
 .students-panel .panel-header {
@@ -147,25 +136,25 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    border-bottom: 1px solid #edf2f7;
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
 }
 
 .panel-header h2 {
     font-size: 1.5rem;
-    color: #2d3748;
+    color: var(--text-main);
     margin: 0;
     font-weight: 700;
 }
 
 .code-badge {
-    background: #ebf8ff;
-    color: #2b6cb0;
+    background: var(--bg-body);
+    color: var(--primary);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     font-family: 'Fira Code', monospace;
     font-size: 1rem;
-    border: 1px solid #bee3f8;
+    border: 1px solid var(--primary-light);
     font-weight: 600;
 }
 
@@ -177,8 +166,8 @@
 }
 
 .student-card {
-    background: white;
-    border: 1px solid #e2e8f0;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.25rem;
     display: flex;
@@ -189,8 +178,8 @@
 
 .student-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
-    border-color: #cbd5e0;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--primary-light);
 }
 
 .card-left {
@@ -203,14 +192,14 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     color: white;
     font-size: 1.25rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(118, 75, 162, 0.3);
+    box-shadow: var(--shadow-sm);
 }
 
 .student-details {
@@ -220,13 +209,13 @@
 
 .student-name {
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-main);
     font-size: 1.05rem;
 }
 
 .student-email {
     font-size: 0.85rem;
-    color: #718096;
+    color: var(--text-muted);
 }
 
 /* Action Buttons */
@@ -273,37 +262,39 @@
 .no-students {
     text-align: center;
     padding: 3rem;
-    color: #a0aec0;
+    color: var(--text-muted);
     font-size: 1.1rem;
     grid-column: 1 / -1;
-    background: #f7fafc;
+    background: var(--bg-body);
     border-radius: 12px;
-    border: 2px dashed #e2e8f0;
+    border: 2px dashed var(--border-color);
 }
 
 /* Select Prompt */
 .select-prompt {
     text-align: center;
     padding: 4rem 2rem;
-    color: #718096;
-    background: white;
+    color: var(--text-muted);
+    background: var(--bg-panel);
     border-radius: 16px;
     margin: 2rem auto;
     max-width: 600px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 /* Modal Polish */
 .modal-overlay {
-    background: rgba(45, 55, 72, 0.75);
-    backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
 }
 
 .modal-box {
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-premium);
+    border: 1px solid var(--border-color);
+    background: var(--bg-panel);
+    color: var(--text-main);
     animation: modalSlideIn 0.3s ease-out;
 }
 
@@ -322,23 +313,25 @@
 .modal-box h3 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #2d3748;
+    color: var(--text-main);
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #edf2f7;
+    border-bottom: 2px solid var(--border-color);
 }
 
 .message-textarea {
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-color);
+    background: var(--bg-body);
+    color: var(--text-main);
     border-radius: 10px;
     padding: 1rem;
     transition: border-color 0.2s;
 }
 
 .message-textarea:focus {
-    border-color: #4299e1;
+    border-color: var(--primary);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 .modal-actions {
@@ -361,7 +354,7 @@
 
 /* Attendance Table Polish */
 .attendance-panel {
-    background: #f8fafc;
+    background: var(--bg-body);
     border-radius: 12px;
     padding: 1.5rem;
 }
@@ -371,12 +364,11 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-    background: white;
+    background: var(--bg-panel);
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    color: #2d3748;
-    /* Contrast fix: Dark text on white bg */
+    box-shadow: var(--shadow-sm);
+    color: var(--text-main);
     font-weight: 600;
     justify-content: space-between;
 }
@@ -388,11 +380,11 @@
 }
 
 .today-btn {
-    background: #edf2f7;
-    border: 1px solid #e2e8f0;
+    background: var(--bg-body);
+    border: 1px solid var(--border-color);
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
-    color: #4a5568;
+    color: var(--text-main);
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
@@ -400,37 +392,34 @@
 }
 
 .today-btn:hover {
-    background: #e2e8f0;
-    color: #2d3748;
+    background: var(--border-color);
+    color: var(--text-main);
 }
 
 .attendance-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background: white;
+    background: var(--bg-panel);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    color: #2d3748;
-    /* Contrast fix */
+    box-shadow: var(--shadow-sm);
+    color: var(--text-main);
 }
 
 .attendance-table th {
-    background: #f1f5f9;
+    background: var(--bg-body);
     padding: 1rem;
     text-align: left;
-    color: #1a202c;
-    /* Darker for proper contrast */
+    color: var(--text-muted);
     font-weight: 700;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .attendance-table td {
     padding: 1rem;
-    border-bottom: 1px solid #f1f5f9;
-    color: #2d3748;
-    /* Contrast fix */
+    border-bottom: 1px solid var(--bg-body);
+    color: var(--text-main);
     font-weight: 500;
 }
 
@@ -438,15 +427,15 @@
     margin-right: 15px;
     cursor: pointer;
     font-weight: 500;
-    color: #4a5568;
+    color: var(--text-muted);
 }
 
 .status-label:hover {
-    color: #2d3748;
+    color: var(--text-main);
 }
 
 .save-btn {
-    background: #48bb78;
+    background: var(--primary);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -458,7 +447,7 @@
 }
 
 .save-btn:hover {
-    background: #38a169;
+    background: var(--primary-light);
 }
 
 /* === GRADEBOOK POLISH === */
@@ -477,30 +466,28 @@
 }
 
 .assignment-card {
-    background: white;
+    background: var(--bg-panel);
     padding: 1.25rem;
     border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     display: flex;
     flex-direction: row;
-    /* Horizontal layout */
     align-items: center;
     justify-content: space-between;
     height: auto;
-    /* Let content dictate height */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-sm);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .assignment-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
 }
 
 .assignment-info h3 {
     margin: 0 0 0.5rem 0;
     font-size: 1.1rem;
-    color: #2d3748;
+    color: var(--text-main);
 }
 
 .page-header h1 {
@@ -517,12 +504,10 @@
 
 .view-btn {
     align-self: center;
-    background: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
-    /* Vibrant Gradient */
+    background: var(--primary);
     color: white;
     border: none;
     width: 44px;
-    /* Slightly larger */
     height: 44px;
     border-radius: 50%;
     display: flex;
@@ -531,18 +516,14 @@
     cursor: pointer;
     margin-top: 0;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Smooth bouncy pop */
     font-size: 1.25rem;
-    box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
-    /* Soft Glow */
+    box-shadow: var(--shadow-sm);
 }
 
 .view-btn:hover {
     transform: translateY(-3px) scale(1.05);
-    /* Lift effect */
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.4);
-    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-    /* Darker gradient on hover */
+    box-shadow: var(--shadow-md);
+    background: var(--primary-light);
 }
 
 .no-data-msg {
@@ -564,7 +545,7 @@
 
 .detail-header h2 {
     font-size: 1.5rem;
-    color: #2d3748;
+    color: var(--text-main);
     margin: 0;
     display: flex;
     align-items: center;
@@ -597,31 +578,30 @@
 
 .grades-table-wrapper {
     overflow-x: auto;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
-    background: white;
+    background: var(--bg-panel);
 }
 
 .grades-table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    color: #2d3748;
-    /* Dark text */
+    background: var(--bg-panel);
+    color: var(--text-main);
 }
 
 .grades-table th {
-    background: #f8fafc;
+    background: var(--bg-body);
     padding: 1rem;
     text-align: left;
     font-weight: 700;
-    color: #4a5568;
-    border-bottom: 2px solid #e2e8f0;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .grades-table td {
     padding: 1rem;
-    border-bottom: 1px solid #edf2f7;
+    border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
 }
 
@@ -630,28 +610,28 @@
 .grades-table td:first-child {
     position: sticky;
     left: 0;
-    background: white;
+    background: var(--bg-panel);
     z-index: 5;
-    border-right: 2px solid #edf2f7;
+    border-right: 2px solid var(--border-color);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.02);
 }
 
 .grades-table th:first-child {
-    background: #f8fafc;
+    background: var(--bg-body);
     z-index: 6;
 }
 
 /* Type Badges */
 .type-badge {
-    background: #edf2f7;
-    color: #718096;
+    background: var(--bg-body);
+    color: var(--text-muted);
     font-size: 0.7rem;
     padding: 2px 6px;
     border-radius: 4px;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.5px;
-    border: 1px solid #cbd5e0;
+    border: 1px solid var(--border-color);
 }
 
 /* Student Cell in Gradebook */
@@ -662,19 +642,19 @@
 
 .student-cell .name {
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-main);
 }
 
 .student-cell .email {
     font-size: 0.8rem;
-    color: #a0aec0;
+    color: var(--text-muted);
 }
 
 /* Grade Cell */
 .grade-cell {
     font-family: 'Fira Code', monospace;
     font-weight: 600;
-    color: #2d3748;
+    color: var(--text-main);
     font-size: 1.1rem;
 }
 

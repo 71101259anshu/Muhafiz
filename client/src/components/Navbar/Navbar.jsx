@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthContext } from "../../context/AuthContext";
 import "./Navbar.css";
-import { FaGraduationCap, FaCheckCircle } from 'react-icons/fa';
+import KvizroomLogo from '../KvizroomLogo/KvizroomLogo';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,21 +21,14 @@ const Navbar = () => {
 
   return (
     <motion.header
-      className="navbar glass-nav"
+      className="navbar"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div className="logo-container">
         <Link to="/" className="brand-logo">
-          <div className="logo-icon-wrapper">
-            <FaGraduationCap className="shield-icon" />
-            <FaCheckCircle className="check-icon" />
-          </div>
-          <span className="brand-text">
-            <span className="brand-primary">Kviz</span>
-            <span className="brand-secondary">room</span>
-          </span>
+          <KvizroomLogo variant="light" size={36} />
         </Link>
       </div>
 

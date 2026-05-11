@@ -3,9 +3,9 @@
   padding: 2rem;
   padding-top: 100px;
   min-height: 100vh;
-  font-family: var(--font-main, 'Roboto', sans-serif);
-  background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
-  color: #e2e8f0;
+  font-family: var(--font-main);
+  background: var(--bg-body);
+  color: var(--text-main);
   background-attachment: fixed;
 }
 
@@ -15,23 +15,22 @@
   align-items: center;
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
 }
 
 .header-content h1 {
   font-size: 1.8rem;
-  color: #1e293b;
+  color: var(--text-main);
   margin: 0;
   font-weight: 800;
 }
 
 .header-content p {
   margin: 0.5rem 0 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -39,45 +38,45 @@
 .table-scroll-wrapper {
   width: 100%;
   overflow-x: auto;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .users-table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
 .users-table th {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--bg-body);
+  color: var(--text-muted);
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.8rem;
   padding: 1.2rem 1rem;
   letter-spacing: 0.05em;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--border-color);
   text-align: center;
 }
 
 .users-table td {
   padding: 1.2rem 1rem;
   text-align: center;
-  border-bottom: 1px solid #f1f5f9;
-  color: #334155;
+  border-bottom: 1px solid var(--bg-body);
+  color: var(--text-main);
   vertical-align: middle;
   font-size: 0.95rem;
 }
 
 .users-table tr:hover {
-  background-color: #f8fafc;
+  background-color: var(--bg-body);
 }
 
 .view-btn {
-  background: var(--secondary);
+  background: var(--primary);
   color: white;
   padding: 8px 16px;
   border: none;
@@ -86,13 +85,13 @@
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.2s;
-  box-shadow: 0 2px 4px rgba(44, 177, 188, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
 .view-btn:hover {
-  background: #259aa5;
+  background: var(--primary-light);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(44, 177, 188, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 /* Modal Box */
@@ -112,17 +111,17 @@
 }
 
 .modal-box {
-  background: linear-gradient(to bottom, #ffffff, #f1f5f9);
-  padding: 2rem;
-  border-radius: 16px;
+  background: var(--bg-panel);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
   width: 90%;
   max-width: 450px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-premium);
+  border: 1px solid var(--border-color);
   animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
-  color: #334155;
+  color: var(--text-main);
 }
 
 /* Modal Header Decoration */
@@ -133,13 +132,13 @@
   left: 0;
   width: 100%;
   height: 6px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
 }
 
 .modal-box h3 {
   font-size: 1.5rem;
   margin: 0 0 1rem 0;
-  color: #1e293b;
+  color: var(--text-main);
   font-weight: 800;
 }
 
@@ -152,11 +151,11 @@
 .activity-log li {
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
-  color: #64748b;
-  background: #fff;
+  color: var(--text-muted);
+  background: var(--bg-body);
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
 }
 
 .no-activity {
@@ -213,14 +212,14 @@
 }
 
 .cancel-btn {
-  background: white;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
 }
 
 .cancel-btn:hover {
-  background: #f8fafc;
-  color: #1e293b;
+  background: var(--bg-body);
+  color: var(--text-main);
 }
 
 @keyframes modalPop {

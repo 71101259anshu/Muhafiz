@@ -6,19 +6,21 @@
   margin: 0 auto;
   min-height: 100vh;
   text-align: center;
+  background: var(--bg-body);
+  color: var(--text-main);
 }
 
 .contact-title {
   font-size: 2.2rem;
   margin-bottom: 0.5rem;
-  color: #064420;
+  color: var(--text-main);
   font-weight: 600;
 }
 
 .contact-subtext {
   font-size: 1rem;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--text-muted);
 }
 
 .contact-form {
@@ -33,15 +35,17 @@
 .contact-form input,
 .contact-form textarea {
   padding: 0.9rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
   font-size: 1rem;
   width: 100%;
   outline: none;
+  color: var(--text-main);
 }
 
 .contact-btn {
-  background-color: #008000;
+  background-color: var(--primary);
   color: white;
   padding: 0.9rem 1.5rem;
   border-radius: 25px;
@@ -52,29 +56,29 @@
 }
 
 .contact-btn:hover {
-  background-color: #045d1f;
+  background-color: var(--primary-light);
 }
 
 .contact-info {
   font-size: 1rem;
-  color: #333;
+  color: var(--text-muted);
 }
 .back-btn {
   position: fixed;
   top: 20px;
   left: 20px;
-  background-color: #008000;
+  background-color: var(--primary);
   color: white;
   text-decoration: none;
   padding: 0.6rem 1.2rem;
   border-radius: 25px;
   font-weight: 600;
   z-index: 999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm);
   transition: background 0.3s ease, transform 0.2s;
 }
 
 .back-btn:hover {
-  background-color: #045d1f;
+  background-color: var(--primary-light);
   transform: scale(1.05);
 }

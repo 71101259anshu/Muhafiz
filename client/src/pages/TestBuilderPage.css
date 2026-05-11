@@ -3,27 +3,27 @@
   max-width: 900px;
   margin: auto;
   padding: 20px;
-  background: #ffffff;
+  background: var(--bg-panel);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-main);
 }
 
 /* Title */
 .builder-container h3 {
   text-align: center;
-  color: #2d3748;
+  color: var(--text-main);
   margin-bottom: 20px;
   font-size: 1.8rem;
 }
 
 /* Question card */
 .question-card {
-  background: #f9fafb;
+  background: var(--bg-body);
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
 }
 
 .question-header {
@@ -34,14 +34,16 @@
 
 .question-header strong {
   font-size: 1.1rem;
-  color: #4a5568;
+  color: var(--text-main);
 }
 
 .question-header input[type="text"] {
   flex: 1;
   padding: 8px;
   border-radius: 6px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  color: var(--text-main);
   font-size: 1rem;
 }
 
@@ -61,7 +63,9 @@
   flex: 1;
   padding: 6px;
   border-radius: 6px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  color: var(--text-main);
 }
 
 .option-item button {
@@ -97,15 +101,17 @@
 }
 
 .question-actions button {
-  background: #edf2f7;
-  border: 1px solid #cbd5e0;
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
   border-radius: 5px;
   padding: 5px 8px;
   cursor: pointer;
 }
 
 .question-actions button:hover {
-  background: #e2e8f0;
+  background: var(--border-color);
+  color: var(--text-main);
 }
 
 /* Type selector */
@@ -121,12 +127,14 @@
   flex: 1;
   padding: 8px;
   border-radius: 6px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  color: var(--text-main);
 }
 
 .type-selector button {
   padding: 8px 14px;
-  background: #3182ce;
+  background: var(--primary);
   border: none;
   color: white;
   border-radius: 6px;
@@ -134,19 +142,19 @@
 }
 
 .type-selector button:disabled {
-  background: #a0aec0;
+  background: var(--border-color);
   cursor: not-allowed;
 }
 
 .type-selector button:hover:not(:disabled) {
-  background: #2b6cb0;
+  background: var(--primary-light);
 }
 
 /* Save button */
 .save-btn {
   margin-top: 25px;
   padding: 10px 16px;
-  background: #38a169;
+  background: var(--primary);
   border: none;
   color: white;
   border-radius: 8px;
@@ -156,7 +164,7 @@
 }
 
 .save-btn:hover {
-  background: #2f855a;
+  background: var(--primary-light);
 }
 
 /* Responsive */

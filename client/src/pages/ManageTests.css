@@ -3,10 +3,9 @@
   padding: 2rem;
   padding-top: 100px;
   min-height: 100vh;
-  font-family: var(--font-main, 'Roboto', sans-serif);
-  background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
-  color: #e2e8f0;
-  background-attachment: fixed;
+  font-family: var(--font-main);
+  background: var(--bg-body);
+  color: var(--text-main);
 }
 
 .header-section {
@@ -15,29 +14,28 @@
   align-items: center;
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
 }
 
 .header-content h1 {
   font-size: 1.8rem;
-  color: #1e293b;
+  color: var(--text-main);
   margin: 0;
   font-weight: 800;
 }
 
 .header-content p {
   margin: 0.5rem 0 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.95rem;
   font-weight: 500;
 }
 
 .create-button {
-  background: var(--secondary);
+  background: var(--primary);
   color: white;
   padding: 12px 24px;
   font-size: 1rem;
@@ -49,22 +47,22 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 15px rgba(44, 177, 188, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .create-button:hover {
-  background: #259aa5;
+  background: var(--primary-light);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 177, 188, 0.4);
+  box-shadow: var(--shadow-md);
 }
 
 .table-container {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .tests-table {
@@ -73,33 +71,33 @@
 }
 
 .tests-table th {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--bg-body);
+  color: var(--text-muted);
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.8rem;
   padding: 1.2rem 1rem;
   letter-spacing: 0.05em;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--border-color);
   text-align: center;
 }
 
 .tests-table td {
   padding: 1.2rem 1rem;
   text-align: center;
-  border-bottom: 1px solid #f1f5f9;
-  color: #334155;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
   vertical-align: middle;
   font-size: 0.95rem;
 }
 
 .tests-table tr:hover {
-  background-color: #f8fafc;
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .test-title {
   font-weight: 600;
-  color: #1e293b !important;
+  color: var(--text-main) !important;
   font-size: 1rem;
 }
 
@@ -138,7 +136,7 @@
 }
 
 .action-btn.email {
-  background: var(--secondary);
+  background: var(--primary);
 }
 
 .action-btn.report {
@@ -156,8 +154,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,18 +164,17 @@
 }
 
 .modal-box {
-  background: linear-gradient(to bottom, #ffffff, #f1f5f9);
-  padding: 2rem;
-  border-radius: 16px;
+  background: var(--bg-panel);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-premium);
+  border: 1px solid var(--border-color);
   animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
-  color: #334155;
-  /* Force dark text for visibility */
+  color: var(--text-main);
 }
 
 /* Modal Header Decoration */
@@ -188,13 +185,13 @@
   left: 0;
   width: 100%;
   height: 6px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
 }
 
 .modal-box h3 {
   font-size: 1.75rem;
   margin: 0 0 1.5rem 0;
-  color: #1e293b;
+  color: var(--text-main);
   font-weight: 800;
   letter-spacing: -0.5px;
 }
@@ -204,7 +201,7 @@
   margin-top: 1.25rem;
   font-weight: 600;
   font-size: 0.9rem;
-  color: #475569;
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
 
@@ -215,29 +212,28 @@
   padding: 14px 16px;
   margin-top: 0;
   margin-bottom: 5px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
   font-family: inherit;
   font-size: 1rem;
   outline: none;
-  background-color: #f8fafc;
+  background-color: var(--bg-body);
   transition: all 0.2s ease;
   box-sizing: border-box;
-  color: #1e293b;
-  /* Ensuring dark text */
+  color: var(--text-main);
 }
 
 .modal-box input::placeholder,
 .modal-box textarea::placeholder {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .modal-box input:focus,
 .modal-box textarea:focus,
 .class-select:focus {
-  border-color: var(--secondary);
-  background-color: #fff;
-  box-shadow: 0 0 0 4px rgba(44, 177, 188, 0.1);
+  border-color: var(--primary);
+  background-color: var(--bg-panel);
+  box-shadow: 0 0 0 4px var(--primary-glow);
 }
 
 .popup-actions {
@@ -288,15 +284,15 @@
 }
 
 .popup-actions .cancel-btn {
-  background-color: white;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
+  background-color: var(--bg-panel);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
 }
 
 .popup-actions .cancel-btn:hover {
-  background-color: #f8fafc;
-  color: #1e293b;
-  border-color: #cbd5e1;
+  background-color: rgba(0, 0, 0, 0.02);
+  color: var(--text-main);
+  border-color: var(--border-color);
 }
 
 @keyframes modalPop {
@@ -354,14 +350,14 @@
 .share-section h4 {
   margin: 0 0 0.75rem 0;
   font-size: 1.1rem;
-  color: #1e293b;
+  color: var(--text-main);
   font-weight: 700;
 }
 
 .share-section p {
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
@@ -379,16 +375,16 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background: #cbd5e1;
+  background: var(--border-color);
   z-index: 0;
 }
 
 .share-divider span {
-  background: #f8fafc;
+  background: var(--bg-body);
   /* Matches modal gradient approx */
   padding: 0 15px;
   z-index: 1;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -398,7 +394,7 @@
 .full-width-btn {
   width: 100%;
   margin-top: 10px;
-  background: var(--secondary);
+  background: var(--primary);
   color: white;
   padding: 14px;
   border-radius: 8px;
@@ -407,24 +403,26 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(44, 177, 188, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
 .full-width-btn:hover {
-  background: #259aa5;
+  background: var(--primary-light);
   transform: translateY(-1px);
-  box-shadow: 0 6px 12px rgba(44, 177, 188, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .full-width-btn:disabled {
-  background: #cbd5e1;
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
 .class-select {
-  color: #1e293b;
+  color: var(--text-main);
   font-weight: 500;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231F3A5F%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
@@ -437,22 +435,22 @@
 /* Student Checklist */
 .student-checklist {
   margin-top: 15px;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .checklist-header {
   padding: 10px 15px;
-  background: #f1f5f9;
+  background: var(--bg-body);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border-color);
   font-size: 0.9rem;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-muted);
 }
 
 .checklist-body {
@@ -471,7 +469,7 @@
 }
 
 .student-verify-row:hover {
-  background: #f8fafc;
+  background: var(--bg-body);
 }
 
 .student-verify-row input {
@@ -482,19 +480,19 @@
 
 .student-name {
   font-weight: 500;
-  color: #1e293b;
+  color: var(--text-main);
   margin-right: 8px;
 }
 
 .student-email {
   font-size: 0.85rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .text-btn {
   background: none;
   border: none;
-  color: var(--secondary);
+  color: var(--primary);
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
