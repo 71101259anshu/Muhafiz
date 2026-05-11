@@ -32,7 +32,7 @@ const Stream = ({ classId }) => {
     useEffect(() => {
         fetchPosts();
 
-        const socket = io(`${process.env.REACT_APP_API_URL || `${process.env.REACT_APP_API_URL || "${process.env.REACT_APP_API_URL || "http://localhost:5000"}"}`}`);
+        const socket = io(process.env.REACT_APP_API_URL || "http://localhost:5000");
 
         socket.on('new_post', (post) => {
             if (post.class === classId) {
