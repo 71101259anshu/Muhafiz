@@ -70,6 +70,10 @@ code {
   padding: 0 1.5rem;
 }
 
+.text-center {
+  text-align: center !important;
+}
+
 @media (max-width: 768px) {
   .responsive-container {
     padding: 0 1rem;
