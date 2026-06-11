@@ -1,8 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const sendEmail = require('../utils/sendEmail');
 const { sendOtp, verifyOtp } = require('./otpController');
-const { Resend } = require('resend');
 
 
 // Generate JWT
@@ -106,20 +106,16 @@ const sendResetOtp = async (req, res) => {
   otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 };
 
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from: 'Kvizroom <onboarding@resend.dev>',
-      to: email,
-      subject: 'Your Kvizroom Password Reset OTP',
-      html: `
+    const html = `
         <div style="font-family: sans-serif; max-width: 480px; margin: auto; padding: 32px; background: #f9fafb; border-radius: 12px;">
           <h2 style="color: #4f46e5; margin-bottom: 8px;">Password Reset</h2>
           <p style="color: #374151;">Use the OTP below to reset your Kvizroom password. It expires in <strong>5 minutes</strong>.</p>
           <div style="font-size: 2.5rem; font-weight: 900; letter-spacing: 12px; color: #111827; background: #e0e7ff; padding: 16px 24px; border-radius: 8px; text-align: center; margin: 24px 0;">${otp}</div>
           <p style="color: #6b7280; font-size: 0.85rem;">If you did not request this, ignore this email.</p>
         </div>
-      `,
-    });
+      `;
+    
+    await sendEmail(email, 'Your Kvizroom Password Reset OTP', html);
   } catch (emailErr) {
     console.error('Failed to send OTP email:', emailErr.message);
     // Still respond — OTP is stored in memory, user can retry

@@ -4,51 +4,56 @@
   align-items: center;
   padding: 4rem 1rem;
   min-height: 100vh;
-  background: var(--bg-body);
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
+  background-attachment: fixed;
+  color: #ffffff;
 }
 
-
 .login-form {
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 2.5rem;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-premium);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
   max-width: 400px;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .login-form h2 {
   text-align: center;
-  color: var(--text-main);
+  color: #ffffff;
   margin-bottom: 2rem;
   font-weight: 800;
   font-size: 2rem;
   letter-spacing: -0.03em;
+  text-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }
 
 .login-form input {
   padding: 14px 16px;
-  background: var(--bg-body);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 1rem;
   transition: all 0.2s;
-  color: var(--text-main);
+  color: #ffffff;
+  outline: none;
 }
 
 .login-form input::placeholder {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .login-form input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-glow);
-  background: var(--bg-panel);
+  border-color: var(--primary-light);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .login-btn {
@@ -62,63 +67,68 @@
   font-size: 1.05rem;
   margin-top: 1rem;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
 }
 
 .login-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
   background: var(--gradient-primary);
 }
 
 .forgot-password {
-  color: var(--primary);
+  color: #818cf8;
   cursor: pointer;
   text-align: center;
   font-weight: 500;
   font-size: 0.9rem;
   margin-top: 0.5rem;
+  transition: color 0.2s;
 }
 
 .forgot-password:hover {
+  color: #a5b4fc;
   text-decoration: underline;
 }
 
 .form-footer {
   text-align: center;
   margin-top: 1.5rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.95rem;
 }
 
 .form-footer a {
-  color: var(--primary);
+  color: #818cf8;
   text-decoration: none;
   font-weight: 600;
   margin-left: 5px;
+  transition: color 0.2s;
 }
 
 .form-footer a:hover {
+  color: #a5b4fc;
   text-decoration: underline;
 }
 
 /* Popup Styles */
 .popup-overlay {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(5, 4, 15, 0.7);
+  backdrop-filter: blur(8px);
 }
 
 .popup-box {
-  background: var(--bg-panel);
+  background: rgba(20, 15, 45, 0.95);
   padding: 2.5rem;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-premium);
-  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
 
 .popup-box h3 {
   margin-top: 0;
-  color: var(--text-main);
+  color: #ffffff;
 }
 
 .popup-box button {
@@ -129,8 +139,10 @@
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .popup-box button:hover {
   background: var(--primary-light);
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.4);
 }

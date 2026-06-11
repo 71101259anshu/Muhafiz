@@ -3,22 +3,34 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 2rem;
-  position: sticky;
+  position: sticky !important;
   top: 0;
-  z-index: 1000;
+  z-index: 1000 !important;
   width: 100%;
   box-sizing: border-box;
   /* Base — video sits below */
   background: transparent;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  overflow: hidden;
 }
 
 /* Scrolled State */
 .navbar.scrolled {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  background: rgba(10, 10, 40, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   border-bottom-color: rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 2rem;
+}
+
+/* Non-Homepage Default Dark Background for visibility on light pages */
+.navbar.non-homepage {
+  background: rgba(10, 10, 32, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Brand Logo Styling --- */
@@ -73,11 +85,16 @@
 .menu-toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
   z-index: 1001;
+  width: 40px;
+  height: 40px;
+  padding: 0;
 }
 
 .bar {
@@ -176,25 +193,31 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
+/* Mobile and Tablet Styles */
+@media (max-width: 1024px) {
   .menu-toggle {
-    display: flex;
+    display: flex !important;
   }
 
   .nav-links {
     position: absolute;
-    top: 70px;
-    right: 1rem;
-    background: rgba(10, 10, 40, 0.92);
-    backdrop-filter: blur(20px);
-    width: 250px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    top: 75px;
+    right: 1.5rem;
+    background: rgba(10, 10, 32, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    width: 260px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     flex-direction: column;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.8rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     display: none;
+  }
+
+  /* Adjust dropdown menu height slightly on sticky compact header */
+  .navbar.scrolled .nav-links {
+    top: 65px;
   }
 
   .nav-links.open {
@@ -210,6 +233,10 @@
   .nav-links ul li {
     width: 100%;
     text-align: center;
+  }
+
+  .avatar-container {
+    justify-content: center;
   }
 
   .bar.open:nth-child(1) {

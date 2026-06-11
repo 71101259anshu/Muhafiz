@@ -1,5 +1,14 @@
 /* Reports Page Styles */
 .reports-page {
+  --bg-body: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
+  --bg-panel: rgba(255, 255, 255, 0.03);
+  --text-main: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.5);
+
   padding: 2rem;
   padding-top: 100px;
   min-height: 100vh;
@@ -1086,4 +1095,100 @@
 .email-btn:hover {
   background: var(--primary-light);
   box-shadow: var(--shadow-sm);
+}
+
+/* Custom premium glassmorphism dark theme overrides */
+.reports-header,
+.summary-box,
+.student-section,
+.test-summary-container,
+.test-summary-card,
+.proctor-logs-container,
+.log-card,
+.violations-summary,
+.violation-card,
+.behavior-chart-container,
+.tab-content,
+.popup-box {
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: #ffffff !important;
+}
+
+.summary-box.total .icon {
+  background: rgba(59, 130, 246, 0.15) !important;
+  color: #93c5fd !important;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+}
+
+.summary-box.attended .icon {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #a7f3d0 !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+}
+
+.summary-box.absent .icon {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #fca5a5 !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+}
+
+.student-list li {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+}
+
+.student-list li:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+.popup-overlay {
+  background: rgba(5, 4, 15, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.popup-box {
+  background: rgba(20, 15, 45, 0.95) !important;
+  color: #ffffff !important;
+}
+
+/* Ensure headings inside reports look correct */
+.reports-page h1,
+.reports-page h2,
+.reports-page h3,
+.reports-page h4,
+.reports-page h5,
+.reports-page h6,
+.section-title {
+  color: #ffffff !important;
+}
+
+.section-title.success {
+  color: #10b981 !important;
+}
+
+.section-title.error {
+  color: #ef4444 !important;
+}
+
+.reports-page input,
+.reports-page select,
+.reports-page textarea {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+
+.reports-page input:focus,
+.reports-page select:focus,
+.reports-page textarea:focus {
+  border-color: var(--primary-light) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }

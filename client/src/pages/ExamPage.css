@@ -1,39 +1,43 @@
 /* Ensure Toast is visible in Fullscreen */
 .Toastify__toast-container {
   z-index: 2147483647 !important;
-  /* Max z-index */
   position: fixed;
   top: 1rem;
   right: 1rem;
 }
 
 .exam-page-wrapper {
-  background: var(--bg-body);
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
+  background-attachment: fixed;
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   padding-top: 1.5rem;
+  color: #ffffff;
 }
 
 .exam-ui-container {
-  max-width: 800px;
+  max-width: 850px;
   margin: 0 auto;
   font-family: var(--font-main);
-  color: var(--text-main);
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 /* Header (Timer & Submit) */
 .exam-header {
-  background: var(--bg-panel);
-  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.25rem 2rem;
   position: sticky;
-  top: 1rem;
+  top: 1.5rem;
   z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  margin-bottom: 1.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 2rem;
   border-radius: 20px;
 }
 
@@ -45,8 +49,8 @@
 
 .exam-title-header {
   margin: 0;
-  font-size: 1rem;
-  color: var(--text-main);
+  font-size: 1.15rem;
+  color: #ffffff;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -59,12 +63,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .exam-subtitle {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
   font-weight: 500;
 }
 
@@ -72,11 +76,11 @@
   font-size: 1.1rem;
   font-weight: 700;
   font-family: monospace;
-  background: var(--bg-body);
+  background: rgba(0, 0, 0, 0.3);
   padding: 8px 16px;
   border-radius: 12px;
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
+  color: #818cf8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   min-width: 80px;
   display: flex;
   justify-content: center;
@@ -87,39 +91,25 @@
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
-  color: #ef4444;
   font-weight: 600;
-  background: #fef2f2;
   padding: 8px 16px;
-  /* Matched padding */
   border-radius: 12px;
-  border: 1px solid #fee2e2;
 }
 
 .rec-dot {
   width: 8px;
   height: 8px;
-  background-color: #ef4444;
   border-radius: 50%;
   animation: blink 2s infinite;
 }
 
 @keyframes blink {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 .submit-top-btn {
-  background: var(--primary);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   padding: 8px 24px;
@@ -127,33 +117,35 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
 }
 
 .submit-top-btn:hover {
-  background: var(--primary-light);
+  background: var(--gradient-primary);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
 }
 
 /* Exam Info Card */
 .exam-info-card {
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   padding: 1.5rem;
   border-radius: 12px;
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
 }
 
 .exam-info-card h2 {
   margin: 0 0 0.5rem 0;
-  color: var(--primary);
+  color: var(--primary-light);
   font-size: 1.5rem;
 }
 
 .exam-info-card p {
   margin: 0;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
 }
 
@@ -163,30 +155,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-body);
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
   padding: 1rem;
 }
 
 .intro-card {
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 3rem;
   border-radius: 20px;
   width: 100%;
   max-width: 550px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-color);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
 .intro-card h1 {
   margin-bottom: 0.5rem;
-  color: var(--primary);
+  color: #ffffff;
   font-weight: 800;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  text-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }
 
 .intro-card p {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 2rem;
 }
 
@@ -196,32 +191,33 @@
   gap: 1.5rem;
   margin-bottom: 2rem;
   font-weight: 600;
-  color: var(--text-main);
-  background: var(--bg-body);
-  padding: 10px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 12px;
   border-radius: 10px;
 }
 
 .rules-list {
   text-align: left;
   margin: 20px 0;
-  background: var(--bg-body);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 20px 30px;
   border-radius: 12px;
   list-style-type: disc;
-  border: 1px solid var(--border-color);
 }
 
 .rules-list li {
   margin-bottom: 8px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .start-btn {
   width: 100%;
   padding: 1rem;
-  background: var(--primary);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   font-size: 1.1rem;
@@ -229,25 +225,27 @@
   cursor: pointer;
   font-weight: 800;
   transition: all 0.2s;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
 }
 
 .start-btn:hover {
-  background: var(--primary-light);
+  background: var(--gradient-primary);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
 }
 
 /* Question Cards */
 .exam-question-card {
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 3rem;
   margin-bottom: 2.5rem;
   border-radius: 24px;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
   overflow: visible;
 }
 
@@ -265,8 +263,9 @@
 }
 
 .exam-question-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15);
 }
 
 .exam-question-card:hover::before {
@@ -274,14 +273,13 @@
   top: 10%;
   bottom: 10%;
   width: 6px;
-  box-shadow: 0 0 15px rgba(44, 177, 188, 0.4);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
 }
 
 .section-card {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.2) 0%, rgba(99, 102, 241, 0.3) 100%) !important;
   color: white;
-  border: none;
-  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .section-card h2 {
@@ -289,7 +287,7 @@
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: -0.5px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .section-card p {
@@ -303,8 +301,8 @@
   height: auto;
   border-radius: 16px;
   margin-bottom: 2rem;
-  border: 4px solid #f0fdf4;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .q-text {
@@ -313,7 +311,7 @@
   font-size: 1.35rem;
   margin-bottom: 2.5rem;
   line-height: 1.6;
-  color: var(--text-main);
+  color: #ffffff;
   display: flex;
   align-items: flex-start;
   gap: 16px;
@@ -325,12 +323,12 @@
   color: white;
   font-size: 1.2rem;
   line-height: 1;
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  background: var(--gradient-primary);
   padding: 10px 14px;
   border-radius: 12px;
   min-width: 44px;
   text-align: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
 }
 
 .req-star {
@@ -342,16 +340,15 @@
   position: absolute;
   top: 24px;
   right: 24px;
-  background: var(--bg-body);
-  color: var(--primary);
-  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #a5b4fc;
+  padding: 6px 14px;
   border-radius: 30px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  border: 1px solid var(--primary-light);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Options */
@@ -368,37 +365,37 @@
   gap: 16px;
   padding: 16px 20px;
   border-radius: 16px;
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: all 0.2s ease;
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.02);
   position: relative;
   overflow: hidden;
 }
 
 .radio-option:hover,
 .checkbox-option:hover {
-  background-color: var(--bg-body);
-  border-color: var(--primary-light);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(99, 102, 241, 0.4);
   transform: translateX(6px);
 }
 
 .radio-option:has(input:checked),
 .checkbox-option:has(input:checked) {
-  background: var(--primary-glow);
-  border-color: var(--primary);
-  box-shadow: var(--shadow-sm);
+  background: rgba(79, 70, 229, 0.15);
+  border-color: var(--primary-light);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
 }
 
 .radio-option input:checked+.opt-text,
 .checkbox-option input:checked+.opt-text {
-  color: var(--primary);
+  color: #ffffff;
   font-weight: 700;
 }
 
 .opt-text {
   font-size: 1.05rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.85);
   transition: color 0.2s;
 }
 
@@ -407,29 +404,34 @@ input[type="radio"],
 input[type="checkbox"] {
   width: 1.3rem;
   height: 1.3rem;
-  accent-color: var(--primary);
+  accent-color: var(--primary-light);
 }
 
 .exam-select,
 .text-answer-input {
   width: 100%;
   padding: 1rem 1.25rem;
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   font-size: 1.05rem;
   outline: none;
-  background: var(--bg-body);
+  background: rgba(255, 255, 255, 0.04);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
-  color: var(--text-main);
+  color: #ffffff;
   box-sizing: border-box;
 }
 
 .exam-select:focus,
 .text-answer-input:focus {
-  border-color: var(--primary);
-  background: var(--bg-panel);
-  box-shadow: 0 4px 12px var(--primary-glow);
+  border-color: var(--primary-light);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.exam-select option {
+  background: #0f0c2d;
+  color: #ffffff;
 }
 
 .text-answer-input.paragraph {
@@ -440,9 +442,23 @@ input[type="checkbox"] {
 
 .text-answer-input.short-answer {
   max-width: 400px;
-  /* Limit width for short answers like 'Age' */
   min-height: unset;
-  /* Remove min-height constraint */
+}
+
+/* File Upload Badge */
+.file-selected-badge {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.file-input-field {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* PIP Webcam */
@@ -452,12 +468,12 @@ input[type="checkbox"] {
   right: 20px;
   width: 200px;
   height: 150px;
-  background: #000;
-  border: 4px solid var(--primary);
+  background: #0b091f;
+  border: 3px solid var(--primary-light);
   border-radius: 16px;
   overflow: hidden;
   z-index: 2147483640;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -476,8 +492,8 @@ input[type="checkbox"] {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(21, 32, 43, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(5, 4, 15, 0.7);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -485,20 +501,25 @@ input[type="checkbox"] {
 }
 
 .modal-content {
-  background: var(--bg-panel);
+  background: rgba(20, 15, 45, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 2.5rem;
   border-radius: 16px;
   text-align: center;
   min-width: 320px;
   max-width: 450px;
-  box-shadow: var(--shadow-lg);
-  color: var(--text-main);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
 }
 
 .modal-content h3 {
   margin-top: 0;
-  color: var(--text-main);
+  color: #ffffff;
   font-size: 1.5rem;
+}
+
+.modal-content p {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .modal-actions {
@@ -516,23 +537,37 @@ input[type="checkbox"] {
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.1s;
+  transition: all 0.2s;
 }
 
 .confirm-btn:hover {
-  transform: scale(1.05);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
 }
 
 .cancel-btn {
   background: transparent;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
   padding: 10px 20px;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .cancel-btn:hover {
-  background: var(--bg-body);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.exam-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  color: #ffffff;
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
 }

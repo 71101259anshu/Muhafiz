@@ -1,74 +1,86 @@
 .class-details-container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    min-height: 90vh;
+    padding: 2.5rem 1rem;
+    padding-top: 100px;
+    min-height: 100vh;
 }
 
 .class-header {
-    height: 200px;
+    height: 220px;
     border-radius: var(--radius-lg);
-    padding: 2rem;
+    padding: 2.5rem;
     color: white;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.25) 0%, rgba(99, 102, 241, 0.4) 100%) !important;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .class-header h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    font-weight: 800;
     margin: 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .class-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
+    font-size: 1.15rem;
+    opacity: 0.85;
     margin: 0.5rem 0 0 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .class-actions {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
+    right: 1.5rem;
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
 }
 
 .join-code-badge {
     position: static;
-    /* Override absolute */
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     font-size: 0.9rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    color: #ffffff;
 }
 
 .join-code-badge:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
 }
 
 .qr-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: all 0.2s;
 }
 
 .qr-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
 }
 
 .qr-code-popup {
@@ -77,43 +89,62 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(5, 4, 15, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    color: #333;
+    color: #ffffff;
 }
 
 .qr-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
+    background: rgba(20, 15, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 2.5rem;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    width: 320px;
 }
 
 .qr-content h3 {
     margin-top: 0;
     margin-bottom: 1.5rem;
-    color: #2d3748;
+    color: #ffffff;
+    font-weight: 800;
 }
 
 .qr-content p {
     margin: 1rem 0;
-    color: #4a5568;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.qr-content-wrapper {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .qr-content button {
-    margin-top: 0.5rem;
-    padding: 8px 24px;
-    background: #e53e3e;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
+  margin-top: 1.5rem;
+  padding: 10px 24px;
+  background: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.qr-content button:hover {
+  background: #dc2626;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
 }
 
 .loading-spinner,
@@ -121,17 +152,17 @@
     padding: 4rem;
     text-align: center;
     font-size: 1.2rem;
-    color: #718096;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .error-message {
-    color: #e53e3e;
+    color: var(--danger);
 }
 
 .class-tabs {
     display: flex;
-    gap: 24px;
-    border-bottom: 1px solid var(--border-color);
+    gap: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin-bottom: 2rem;
     padding-left: 10px;
 }
@@ -142,26 +173,26 @@
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 0 12px 0 !important;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: var(--text-muted) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
     cursor: pointer;
     position: relative;
     transition: all 0.2s;
     letter-spacing: .02em;
     font-family: inherit;
     text-transform: capitalize;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .tab-btn:hover {
-    color: var(--text-main) !important;
+    color: #ffffff !important;
     background: transparent !important;
     opacity: 1;
 }
 
 .tab-btn.active {
-    color: var(--primary) !important;
+    color: var(--primary-light) !important;
     font-weight: 700;
     background: transparent !important;
     opacity: 1;
@@ -174,22 +205,27 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--primary);
+    background: var(--primary-light);
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    box-shadow: 0 -2px 10px rgba(99, 102, 241, 0.5);
 }
 
 .tab-content {
-    background: var(--bg-panel);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     min-height: 400px;
+    overflow: hidden;
 }
 
 .placeholder-tab {
-    padding: 2rem;
+    padding: 3rem;
     text-align: center;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.4);
     font-style: italic;
-    background: var(--bg-body);
-    border-radius: 8px;
-    border: 1px dashed var(--border-color);
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
 }

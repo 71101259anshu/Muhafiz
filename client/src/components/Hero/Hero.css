@@ -199,6 +199,7 @@
   color: #ffffff;
   margin: 0 0 0.2rem 0;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .hero-card-name {
@@ -333,6 +334,34 @@
   background: rgba(255, 255, 255, 0.13);
   border-color: rgba(255, 255, 255, 0.35);
   color: #ffffff;
+}
+
+.hero-card-btn-classroom-outline {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(129, 140, 248, 0.05);
+  color: #818cf8;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.hero-card-btn-classroom-outline:hover {
+  background: rgba(129, 140, 248, 0.12);
+  border-color: #818cf8;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(129, 140, 248, 0.25);
+  transform: translateY(-1px);
 }
 
 /* Loading spinner */

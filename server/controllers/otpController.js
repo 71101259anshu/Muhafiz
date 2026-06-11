@@ -1,4 +1,4 @@
-const { Resend } = require('resend');
+const sendEmail = require('../utils/sendEmail');
 require('dotenv').config();
 
 // Store OTPs temporarily (in-memory)
@@ -13,33 +13,25 @@ const sendOtp = async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from: 'Kvizroom <onboarding@resend.dev>',
-      to: email,
-      subject: 'Your Kvizroom Verification OTP',
-      html: `
+    const html = `
         <div style="font-family: sans-serif; max-width: 480px; margin: auto; padding: 32px; background: #f9fafb; border-radius: 12px;">
           <h2 style="color: #4f46e5; margin-bottom: 8px;">Email Verification</h2>
           <p style="color: #374151;">Use the OTP below to verify your email for Kvizroom. It expires in <strong>5 minutes</strong>.</p>
           <div style="font-size: 2.5rem; font-weight: 900; letter-spacing: 12px; color: #111827; background: #e0e7ff; padding: 16px 24px; border-radius: 8px; text-align: center; margin: 24px 0;">${otp}</div>
           <p style="color: #6b7280; font-size: 0.85rem;">If you did not request this, ignore this email.</p>
         </div>
-      `,
-    });
+      `;
+
+    await sendEmail(email, 'Your Kvizroom Verification OTP', html);
 
     // Store OTP only after successful send
     otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 };
     res.status(200).json({ message: 'OTP sent successfully' });
 
   } catch (error) {
-    // Log full Resend error details to Render logs
     console.error('=== OTP SEND FAILED ===');
     console.error('To:', email);
-    console.error('Resend error name:', error?.name);
-    console.error('Resend error message:', error?.message);
-    console.error('Resend statusCode:', error?.statusCode);
-    console.error('Resend response:', JSON.stringify(error?.response ?? error));
+    console.error('Error message:', error?.message);
     res.status(500).json({
       message: `Failed to send OTP: ${error?.message || 'Unknown error'}`,
     });
@@ -54,3 +46,4 @@ const verifyOtp = (email, enteredOtp) => {
 };
 
 module.exports = { sendOtp, verifyOtp };
+

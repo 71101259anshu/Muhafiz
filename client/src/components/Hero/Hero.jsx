@@ -159,7 +159,7 @@ const Hero = () => {
               <h3 className="hero-card-title">Welcome back,</h3>
               <p className="hero-card-name">{user.username || user.name || 'Friend'}!</p>
               <p className="hero-card-sub">Ready to continue your learning journey?</p>
-              <Link to="/classroom" className="hero-card-btn-primary">
+              <Link to="/classroom" className="hero-card-btn-classroom-outline">
                 Go to Classroom <FiArrowRight />
               </Link>
               <Link to="/invite" className="hero-card-btn-secondary">

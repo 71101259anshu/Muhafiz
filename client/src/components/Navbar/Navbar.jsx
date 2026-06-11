@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthContext } from "../../context/AuthContext";
 import "./Navbar.css";
@@ -7,8 +7,39 @@ import KvizroomLogo from '../KvizroomLogo/KvizroomLogo';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isHomepage = location.pathname === "/";
+
+  // Handle scroll event to toggle background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Handle resize event to update mobile view status
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 1024;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // get a display name fallback
   const displayText = user ? (user.username || user.name || user.email || "") : "";
@@ -21,7 +52,7 @@ const Navbar = () => {
 
   return (
     <motion.header
-      className="navbar"
+      className={`navbar ${scrolled ? "scrolled" : ""} ${!isHomepage ? "non-homepage" : ""}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -45,7 +76,7 @@ const Navbar = () => {
       </div>
 
       <AnimatePresence>
-        {(menuOpen || window.innerWidth > 768) && (
+        {(menuOpen || !isMobile) && (
           <motion.nav
             className={`nav-links ${menuOpen ? "open" : ""}`}
             initial={{ opacity: 0, x: 20 }}
