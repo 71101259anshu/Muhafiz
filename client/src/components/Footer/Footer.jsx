@@ -20,7 +20,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="footer-brand">
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <KvizroomLogo variant="dark" size={38} />
+              <KvizroomLogo variant="light" size={38} />
             </Link>
             <p className="footer-tagline">
               Empowering education with secure, intelligent, and seamless classroom technology — built for the future.
