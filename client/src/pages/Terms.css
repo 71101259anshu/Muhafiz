@@ -1,0 +1,109 @@
+.terms-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 8rem 1.5rem 4rem; /* top padding for fixed navbar */
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
+  background-attachment: fixed;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.terms-content {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.terms-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-weight: 800;
+  font-family: var(--font-main);
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.35);
+}
+
+.terms-subtext {
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.terms-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.terms-card h2 {
+  font-size: 1.3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.terms-card h2:first-of-type {
+  margin-top: 0;
+}
+
+.terms-card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-size: 0.98rem;
+}
+
+.terms-card p:last-child {
+  margin-bottom: 0;
+}
+
+.terms-card strong {
+  color: #818cf8;
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  z-index: 999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.25);
+}
+
+@media (max-width: 768px) {
+  .terms-wrapper {
+    padding-top: 6rem;
+  }
+  .terms-title {
+    font-size: 2rem;
+  }
+  .terms-card {
+    padding: 1.75rem;
+  }
+}

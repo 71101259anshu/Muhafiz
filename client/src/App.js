@@ -8,6 +8,10 @@ import Login from './pages/Login';
 import Blog from './pages/Blog';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import FAQ from './pages/FAQ';
+
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import CreateTest from './pages/CreateTest';
 import AdminDashboard from './pages/AdminDashboard';
@@ -82,6 +86,10 @@ function AppRoutes() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/faq" element={<FAQ />} />
+
                 <Route path="/create-test" element={<PrivateRoute allowedRoles={['admin', 'teacher']}><CreateTest /></PrivateRoute>} />
                 <Route path="/admin/tests/create" element={<PrivateRoute allowedRoles={['admin', 'teacher']}><CreateTest /></PrivateRoute>} />
                 <Route path="/admin" element={<PrivateRoute allowedRoles={['admin', 'teacher']}><AdminDashboard /></PrivateRoute>} />

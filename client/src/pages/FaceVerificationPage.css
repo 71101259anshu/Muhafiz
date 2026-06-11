@@ -1,23 +1,27 @@
 .face-verification-container {
   min-height: 100vh;
-  background: var(--bg-body);
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
+  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 15px;
-  color: var(--text-main);
+  padding: 8rem 1.5rem 4rem; /* top padding for fixed navbar if any */
+  color: #ffffff;
   text-align: center;
   font-family: var(--font-main);
+  box-sizing: border-box;
 }
 
 /* Glassmorphic Container for Webcam */
 .webcam-wrapper {
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 1.5rem;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,19 +31,20 @@
 }
 
 .face-title {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #ffffff;
   font-weight: 800;
   letter-spacing: -0.5px;
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.35);
 }
 
 .webcam {
   width: 100%;
   max-width: 550px;
   border-radius: 16px;
-  box-shadow: var(--shadow-sm);
-  border: 4px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 4px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Green Gradient Button */
@@ -48,39 +53,40 @@
   padding: 1rem 3rem;
   font-size: 1.1rem;
   font-weight: 700;
-  background: var(--primary);
+  background: var(--gradient-primary);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   color: white;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
   letter-spacing: 0.5px;
 }
 
 .proceed-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  background: var(--primary-light);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+  background: var(--gradient-primary);
 }
 
 .proceed-button:disabled {
-  background: var(--border-color);
-  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
 .status-msg {
-  background: var(--bg-panel);
-  color: var(--text-main);
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  padding: 10px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   margin-bottom: 1.5rem;
   font-weight: 600;
   font-size: 0.95rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   display: inline-block;
+  backdrop-filter: blur(10px);
 }

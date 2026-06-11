@@ -1,101 +1,114 @@
 .join-class-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    background: var(--bg-body);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(30, 27, 75, 0.9) 0%, rgba(10, 8, 30, 1) 100%);
+  background-attachment: fixed;
+  color: #ffffff;
+  padding: 2rem 1rem;
 }
 
 .join-class-card {
-    background: var(--bg-panel);
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .join-class-card h2 {
-    margin-bottom: 1rem;
-    color: var(--text-main);
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 2rem;
+  text-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }
 
 .join-class-card p {
-    margin-bottom: 2rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
 }
 
 .join-class-card input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-body);
-    border-radius: 4px;
-    font-size: 1.1rem;
-    text-align: center;
-    letter-spacing: 1px;
-    margin-bottom: 2rem;
-    color: var(--text-main);
-    box-sizing: border-box;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s;
 }
 
 .join-class-card input::placeholder {
-    color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .join-class-card input:focus {
-    border-color: var(--primary);
-    outline: none;
-    box-shadow: 0 0 0 3px var(--primary-glow);
-    background: var(--bg-panel);
+  border-color: var(--primary-light);
+  outline: none;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .join-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 4px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex: 1;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
 }
 
 .join-btn:disabled {
-    background: var(--border-color);
-    color: var(--text-muted);
-    cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .join-btn:not(:disabled):hover {
-    background: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
 }
 
 .cancel-btn {
-    background: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--border-color);
-    padding: 10px 24px;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex: 1;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
 }
 
 .cancel-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
-    color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
 }
